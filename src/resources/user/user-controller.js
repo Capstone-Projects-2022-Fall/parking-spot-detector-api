@@ -1,3 +1,6 @@
+const { User } = require('../../model/');
+const connect_to_db = require('../../database');
+
 const USERS = "users";
 
 /*
@@ -12,21 +15,46 @@ const USERS = "users";
 
 class UserController {
   constructor(app) {
-    app.get(`/${USERS}/:id`, (req, res) => {
-      res.send(req.params);
+    app.get(`/${USERS}/`, async (req, res, next) => {
+      try {
+        const database_connection = await connect_to_db();
+        const users = await User.find();
+        res.send(users);
+      } catch(err) {
+        next(err);
+      }
     });
 
-    app.post(`/${USERS}`, (req, res) => {
-
+    app.get(`/${USERS}/:id`, async (req, res, next) => {
+      try {
+        const database_connection = await connect_to_db();
+        const users = User.find({_id: req.params["id"]});
+        res.send(users);
+      } catch(err) {
+        next(err);
+      }
     });
 
-    app.delete(`/${USERS}/:id`, (req, res) => {
-
+    app.post(`/${USERS}`, async (req, res, next) => {
+      try {
+        const database_connect = await connect_to_db();
+        const new_user = await new User(req.body).save();
+        res.send(new_user);
+      } catch(err) {
+        next(err);
+      }
     });
 
-    // app.update(`/${USERS}/:id`, (req, res) => {
-    //
-    // });
+    app.delete(`/${USERS}/:id`, async (req, res) => {
+      try {
+        const database_connect = await connect_to_db();
+        const deleted_status = await User.deleteOne({_id: req.params["id"]});
+        res.send(deleted_status);
+        res.send(new_user);
+      } catch(err) {
+        next(err);
+      }
+    });
   }
 }
 
