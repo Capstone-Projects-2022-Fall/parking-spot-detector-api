@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "configure-dev": "./scripts/install_dev_env.sh",
+    "drop-database": "./scripts/drop_database_table.sh"
   },
   "author": "Yuri Yakymiv",
   "license": "ISC",
