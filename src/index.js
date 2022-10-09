@@ -3,6 +3,15 @@ const app = express();
 const port = 3000;
 const resources = require('./resources');
 const { MongoServerError } = require('mongodb');
+const { argv } = process;
+
+const RUN_LOCAL_FLAG = "--run-local";
+
+var runLocal = false;
+
+if(argv.includes(RUN_LOCAL_FLAG)) {
+  runLocal = true;
+}
 
 app.use(express.json());
 
@@ -22,6 +31,10 @@ function mongoErrorHandler (err, req, res, next) {
 
 app.use(mongoErrorHandler);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+if(runLocal) {
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+  });
+}
+
+module.exports = app;
