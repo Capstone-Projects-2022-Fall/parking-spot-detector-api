@@ -4,8 +4,8 @@
   "description": "ParkingSpotDetector API Webserver",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js",
+    "test": "mocha --recursive --exit",
+    "start": "node src/index.js --run-local",
     "configure-dev": "./scripts/install_dev_env.sh",
     "drop-database": "./scripts/drop_database_table.sh"
   },
@@ -19,8 +19,11 @@
     "tinydb": "^0.1.0"
   },
   "devDependencies": {
+    "chai": "^4.3.6",
     "express-generator": "^4.2.0",
+    "mocha": "^10.0.0",
     "prisma": "^4.4.0",
+    "supertest": "^6.3.0",
     "typescript": "^4.8.4"
   }
 }
