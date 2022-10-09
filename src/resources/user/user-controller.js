@@ -1,7 +1,7 @@
 const { User } = require('../../model/');
 const connect_to_db = require('../../database');
 
-const USERS = "users";
+const USERS = "user";
 
 /*
   UserController
