@@ -3,6 +3,16 @@ const connect_to_db = require('../../database');
 
 const GROUP = "group";
 
+/**
+ *  GroupController
+ *  
+ *  Post:
+ *  Get:
+ *  Put:
+ *  Delete: 
+ * 
+ */
+
 class GroupController {
     constructor(app) {
         app.get(`/${GROUP}/`, async (req, res, next) => {

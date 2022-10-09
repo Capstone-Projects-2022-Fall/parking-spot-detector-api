@@ -3,6 +3,17 @@ const connect_to_db = require('../../database');
 
 const ADMIN = "admin";
 
+/**
+ *  AdminController
+ *  
+ *  Post: (:first_name, :last_name, :email, :phone_number)
+ *      -> Create Admin
+ *  Get: (:id) -> Get Admin
+ *  Put: ({token => new_value}) -> Update the Admin
+ *  Delete: (:id) -> Delete Admin 
+ * 
+ */
+
 class AdminController {
     constructor(app) {
         app.get(`/${ADMIN}/`, async (req, res, next) => {

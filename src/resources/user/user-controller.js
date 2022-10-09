@@ -1,4 +1,4 @@
-const { User } = require('../../model/');
+const { User, Admin } = require('../../model/');
 const connect_to_db = require('../../database');
 
 const USERS = "user";
@@ -45,7 +45,7 @@ class UserController {
       }
     });
 
-    app.delete(`/${USERS}/:id`, async (req, res) => {
+    app.delete(`/${USERS}/:id`, async (req, res, next) => {
       try {
         const database_connect = await connect_to_db();
         const deleted_status = await User.deleteOne({_id: req.params["id"]});
@@ -55,6 +55,18 @@ class UserController {
         next(err);
       }
     });
+
+    // add admin roles and make admin role anytime
+    app.put(`/${USERS}/:id/touser`, async (req, res, next) => {
+      try {
+        const database_connection = await connect_to_db();
+        const user = await User.find({_id: req.params['id']});
+        const created_admin = await new Admin(req.body).save();
+        res.send(created_admin);
+      } catch (err) {
+        next(err);
+      }
+    })
   }
 }
 
