@@ -3,14 +3,18 @@ const app = express();
 const port = 3000;
 const resources = require('./resources');
 const { MongoServerError } = require('mongodb');
+const favicon = require('serve-favicon');
+const path = require('path');
 
 app.use(express.json());
+
+app.use(favicon(path.join(__dirname, "favicon", "psdlogo.png")));
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-for(var r in resources) {
+for (var r in resources) {
   new resources[r](app);
 }
 
