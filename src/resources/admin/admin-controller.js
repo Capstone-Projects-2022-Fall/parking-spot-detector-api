@@ -1,7 +1,7 @@
 const { Admin } = require('../../model/');
 const connect_to_db = require('../../database');
 
-const ADMIN = "admin";
+const ADMIN = "admins";
 
 /**
  *  AdminController
@@ -29,7 +29,7 @@ class AdminController {
         app.get(`/${ADMIN}/:id`, async (req, res, next) => {
             try {
                 const database_connection = await connect_to_db();
-                const admin = await Admin.find({_id: req.params['id']});
+                const admin = await Admin.find({_id: req.params['_id']});
                 res.send(admin);
             } catch (err) {
                 next(err);
@@ -49,7 +49,7 @@ class AdminController {
         app.delete(`/${ADMIN}/:id`, async (req, res, next) => {
             try {
                 const database_connection = await connect_to_db();
-                const deleted_status = await Admin.deleteOne({_id: req.params['id']});
+                const deleted_status = await Admin.deleteOne({_id: req.params['_id']});
                 res.send(deleted_status);
             } catch (err) {
                 next(err);

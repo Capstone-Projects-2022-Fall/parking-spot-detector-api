@@ -1,7 +1,7 @@
 const { User, Admin } = require('../../model/');
 const connect_to_db = require('../../database');
 
-const USERS = "user";
+const USERS = "users";
 
 /*
   UserController
@@ -28,7 +28,7 @@ class UserController {
     app.get(`/${USERS}/:id`, async (req, res, next) => {
       try {
         const database_connection = await connect_to_db();
-        const users = User.find({_id: req.params["id"]});
+        const users = User.find({_id: req.params["_id"]});
         res.send(users);
       } catch(err) {
         next(err);
@@ -48,7 +48,7 @@ class UserController {
     app.delete(`/${USERS}/:id`, async (req, res, next) => {
       try {
         const database_connect = await connect_to_db();
-        const deleted_status = await User.deleteOne({_id: req.params["id"]});
+        const deleted_status = await User.deleteOne({_id: req.params['_id']});
         res.send(deleted_status);
         res.send(new_user);
       } catch(err) {
@@ -60,7 +60,7 @@ class UserController {
     app.put(`/${USERS}/:id/touser`, async (req, res, next) => {
       try {
         const database_connection = await connect_to_db();
-        const user = await User.find({_id: req.params['id']});
+        const user = await User.find({_id: req.params['_id']});
         const created_admin = await new Admin(req.body).save();
         res.send(created_admin);
       } catch (err) {

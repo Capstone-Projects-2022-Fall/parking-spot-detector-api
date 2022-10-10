@@ -2,25 +2,27 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const GroupSchema = new Schema({
-    _id: Schema.Types.ObjectId,
     name: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        index: true
     },
     private: {
         type: Boolean,
-        default: true
+        default: true,
     },
     owner: {
+        //type: String,
         type: Schema.Types.ObjectId,
-        ref: 'Admin'
+        ref: 'Admin',
     },
     users: [
         {
+            //type: String,
             type: Schema.Types.ObjectId,
-            ref: 'User'
-        }
+            ref: 'User',
+        },
     ]
 }, {
     strict: true

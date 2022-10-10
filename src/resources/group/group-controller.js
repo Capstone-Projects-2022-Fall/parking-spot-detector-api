@@ -1,7 +1,7 @@
 const { Group } = require('../../model/');
 const connect_to_db = require('../../database');
 
-const GROUP = "group";
+const GROUP = "groups";
 
 /**
  *  GroupController
@@ -28,7 +28,7 @@ class GroupController {
         app.get(`/${GROUP}/:id`, async (req, res, next) => {
             try {
                 const database_connection = await connect_to_db();
-                const group = Group.find({_id: req.params['id']});
+                const group = Group.find({_id: req.params['_id']});
                 res.send(group);
             } catch (err) {
                 next(err);
@@ -48,7 +48,7 @@ class GroupController {
         app.delete(`/${GROUP}/:id`, async (req, res, next) => {
             try {
                 const database_connection = await connect_to_db();
-                const deleteGroup = await Group.deleteOne({_id: req.params['id']});
+                const deleteGroup = await Group.deleteOne({_id: req.params['_id']});
                 res.send(deleteGroup);
             } catch (err) {
                 next(err);

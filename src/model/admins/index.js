@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const AdminSchema = new Schema({
-    _id: Schema.Types.ObjectId,
     first_name: {
         type: String,
-        required: true
+        required: true,
+        //index: true,
     },
     last_name: {
         type: String,
-        required: true
+        required: true,
+        //index: true,
     },
     email: {
         type: String,
@@ -20,7 +21,8 @@ const AdminSchema = new Schema({
     phone_number: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        //index: true,
     },
     password_hash: {
         type: String,
@@ -28,18 +30,24 @@ const AdminSchema = new Schema({
     },
     handicap: {
         type: Boolean,
-        default: false
+        default: false,
+        //index: true
     },
-    address: String,
+    address: {
+        type: String,
+        //index: true
+    },
     administered_group: {
         type: Schema.Types.ObjectId,
         ref: 'Group',
-        default: null
+        default: null,
+        //index: true,
     },
     administered_camera: {
         type: Schema.Types.ObjectId,
         ref: 'Camera',
-        default: null
+        default: null,
+        //index: true,
     }
 }, {
     strict: true
