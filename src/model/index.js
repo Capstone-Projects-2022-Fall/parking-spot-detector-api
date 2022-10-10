@@ -1,9 +1,11 @@
 const User = require('./users');
-const Camera = require('./Camera');
-const Frame = require('./Frame');
+const Admin = require('./admins');
+const Camera = require('./camera');
+const Group = require('./group');
 
 module.exports = {
   User,
+  Admin,
   Camera,
-  Frame
+  Group
 };
