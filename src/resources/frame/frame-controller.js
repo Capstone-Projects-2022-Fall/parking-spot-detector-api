@@ -1,25 +1,25 @@
-const { Camera } = require('../../model/');
+const { Frame } = require('../../model/');
 const connect_to_db = require('../../database');
 
 const FRAMES = "frames";
 
 /*
-  CameraController
+  FrameController
 
-  Post(:first_name, :last_name, :email, :phone_number)
-    -> Register Camera
-  Get(:id) -> Get Camera
-  Delete(:id) -> Delete Camera
-  Update({token => new_value}) -> Update Camera
+  Post(:camera_id, :bytes, :processed, :datetime)
+    -> Register Frame
+  Get(:id) -> Get Frame
+  Delete(:id) -> Delete Frame
+  Update({token => new_value}) -> Update Frame
 */
 
-class CameraController {
+class FrameController {
   constructor(app) {
     app.get(`/${FRAMES}/`, async (req, res, next) => {
       try {
         const database_connection = await connect_to_db();
-        const cameras = await Camera.find();
-        res.send(cameras);
+        const frames = await Frame.find();
+        res.send(frames);
       } catch(err) {
         next(err);
       }
@@ -28,8 +28,8 @@ class CameraController {
     app.get(`/${FRAMES}/:id`, async (req, res, next) => {
       try {
         const database_connection = await connect_to_db();
-        const camera = Camera.find({_id: req.params["id"]});
-        res.send(camera);
+        const frame = Frame.find({_id: req.params["_id"]});
+        res.send(frame);
       } catch(err) {
         next(err);
       }
@@ -38,17 +38,17 @@ class CameraController {
     app.post(`/${FRAMES}`, async (req, res, next) => {
       try {
         const database_connect = await connect_to_db();
-        const new_camera = await new Camera(req.body).save();
-        res.send(new_camera);
+        const new_frame = await new Frame(req.body).save();
+        res.send(new_frame);
       } catch(err) {
         next(err);
       }
     });
 
-    app.delete(`/${FRAMES}/:id`, async (req, res) => {
+    app.delete(`/${FRAMES}/:id`, async (req, res, next) => {
       try {
         const database_connect = await connect_to_db();
-        const deleted_status = await Camera.deleteOne({_id: req.params["id"]});
+        const deleted_status = await Frame.deleteOne({_id: req.params["_id"]});
         res.send(deleted_status);
       } catch(err) {
         next(err);
@@ -57,4 +57,4 @@ class CameraController {
   }
 }
 
-module.exports = CameraController;
+module.exports = FrameController;
