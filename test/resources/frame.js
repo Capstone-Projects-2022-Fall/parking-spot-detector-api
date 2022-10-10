@@ -4,7 +4,7 @@ const { expect } = require('chai');
 
 var app;
 
-describe('CameraController', function() {
+describe('FrameController', function() {
   // Called once before any of the tests in this block begin.
   beforeEach(async () => {
     await exec('../../scripts/drop_database_table.sh');
@@ -13,7 +13,7 @@ describe('CameraController', function() {
 
   it('should send back a valid JSON object', async () =>
     request(app)
-      .get('/cameras')
+      .get('/frames')
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
