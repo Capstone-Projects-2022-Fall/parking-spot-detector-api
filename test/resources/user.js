@@ -2,7 +2,6 @@ const { exec } = require('child_process');
 const request = require('supertest');
 const { expect } = require('chai');
 
-
 var app;
 
 describe('UserController', function() {
