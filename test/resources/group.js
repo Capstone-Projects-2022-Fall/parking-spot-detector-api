@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 const request = require('supertest');
-const { except } = require('chai');
+const { expect } = require('chai');
 
 var app;
 
@@ -14,7 +14,7 @@ describe('GroupController', function() {
     request(app)
       .get('/groups')
       .set('Content-Type', 'application/json')
-      .except('Content-Type', /json/)
-      .except(200);
+      .expect('Content-Type', /json/)
+      .expect(200);
   });
 });
