@@ -8,5 +8,6 @@ module.exports = {
   user,
   admin,
   group,
-  camera
+  camera,
+  frame
 };
