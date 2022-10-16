@@ -8,6 +8,10 @@ const body_parser = require('body-parser');
 const morgan = require('morgan');
 const { MongoServerError } = require('mongodb');
 const session = require('express-session');
+const passport = require('passport');
+const passport_local_mongoose = require('passport-local-mongoose');
+const connect_ensure_login = require('connect-ensure-login');
+const { User } = require('./model');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const { argv } = process;
 
@@ -41,6 +45,13 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use(file_upload({}));
 app.use(express.json());
 app.use(cors());
@@ -50,7 +61,7 @@ if(RUN_LOCAL_FLAG) {
   app.use(morgan('dev'));
 }
 
-app.get('/', (req, res) => {
+app.get('/', connect_ensure_login.ensureLoggedIn(), (req, res) => {
   res.send('Hello World!');
 });
 
