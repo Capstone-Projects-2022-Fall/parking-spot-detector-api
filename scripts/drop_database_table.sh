@@ -2,4 +2,4 @@
 
 DATABASE_TABLE_NAME="parkingspotdetector"
 
-echo "db.dropDatabase('$DATABASE_TABLE_NAME'); exit;" | mongosh
+echo "db.dropDatabase(); exit;" | mongosh $DATABASE_TABLE_NAME 
