@@ -1,0 +1,1 @@
+curl -X POST --header "Content-Type: application/json" --data "@./test_create_admin" http://localhost:3000/admins
