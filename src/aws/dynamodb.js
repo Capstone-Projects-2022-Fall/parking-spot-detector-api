@@ -10,5 +10,4 @@ AWS.config.update({
 
 const dyClient = new AWS.DynamoDB.DocumentClient();
 
-const FRAME_TABLE = "psdbackenddydb_frame",
-    CAMERA_TABLE = "psdbackenddydb_camera";
+module.exports = dyClient;
