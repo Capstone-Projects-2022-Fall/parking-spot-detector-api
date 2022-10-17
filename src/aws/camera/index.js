@@ -1,4 +1,4 @@
-const dyClient = require('../dynamodb');
+const { dyClient } = require('../dynamodb');
 const table = "psdbackenddydb_camera";
 
 // create/update camera instance
@@ -8,7 +8,7 @@ const createOrUpdateCamera = async (data={}) => {
         Item: data,
     };
     try {
-        await dyClient.put(params).promise();
+        const postPromise = await dyClient.put(params).promise();
         return { success: true }
     } catch (err) {
         return { success: false }

@@ -8,6 +8,10 @@ AWS.config.update({
     secretAccessKey: secretKey,
 });
 
-const dyClient = new AWS.DynamoDB.DocumentClient();
+const dyDB = AWS.DynamoDB;
+const dyClient = dyDB.DocumentClient();
 
-module.exports = dyClient;
+module.exports = {
+    dyClient,
+    dyDB
+};
