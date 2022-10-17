@@ -72,9 +72,11 @@ const deleteCamera = async () => {
     };
 };
 
-module.exports = {
+const CameraFunctions = {
     createOrUpdateCamera,
     readAllCameras,
     readOneCamera,
     deleteCamera
 }
+
+module.exports = CameraFunctions;

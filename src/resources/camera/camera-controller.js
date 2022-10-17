@@ -1,6 +1,8 @@
 const { Camera, Frame } = require('../../model/');
 const connect_to_db = require('../../database');
 
+const CameraFunctions = require('../../aws/camera');
+
 const CAMERAS = "cameras";
 
 /*

@@ -1,6 +1,8 @@
 const { Frame } = require('../../model/');
 const connect_to_db = require('../../database');
 
+const FrameFunctions = require('../../aws/frame');
+
 const FRAMES = "frames";
 
 /*

@@ -1,4 +1,4 @@
-const { dyClient, dyDB } = require('../dynamodb');
+const { dyClient } = require('../dynamodb');
 const table = "psdbackenddydb_frame";
 
 const createOrUpdateFrame = async (data={}) => {
@@ -89,10 +89,12 @@ const deleteFrame = async (value, key = 'id') => {
     };
 }
 
-module.exports = {
+const FrameFunctions = {
     createOrUpdateFrame,
     readAllFrames,
     readFramesByCamera,
     readOneFrame,
     deleteFrame,
 }
+
+module.exports = FrameFunctions;
