@@ -4,6 +4,7 @@ const { Schema, model } = mongoose;
 const FrameSchema = new Schema({
   camera_id: {
     type: String, 
+    // ??? change type to reference camera ID
     required: true, 
     index: true, 
     unique: true

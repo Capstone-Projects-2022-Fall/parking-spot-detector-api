@@ -8,7 +8,8 @@ const CameraSchema = new mongoose.Schema({
     unique: true
   },
   coordinates: {
-    type: [Number]
+    type: [Number],
+    index: true,
   }, 
   orientation: {
     type: [Number],
