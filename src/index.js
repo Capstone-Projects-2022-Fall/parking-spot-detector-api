@@ -13,6 +13,8 @@ const passport_local_mongoose = require('passport-local-mongoose');
 const connect_ensure_login = require('connect-ensure-login');
 const { User } = require('./model');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const favicon = require('serve-favicon');
+const path = require('path');
 const { argv } = process;
 
 var store = new MongoDBStore({
@@ -61,11 +63,13 @@ if(RUN_LOCAL_FLAG) {
   app.use(morgan('dev'));
 }
 
+app.use(favicon(path.join(__dirname, "favicon", "psdlogo.png")));
+
 app.get('/', connect_ensure_login.ensureLoggedIn(), (req, res) => {
   res.send('Hello World!');
 });
 
-for(var r in resources) {
+for (var r in resources) {
   new resources[r](app);
 }
 
