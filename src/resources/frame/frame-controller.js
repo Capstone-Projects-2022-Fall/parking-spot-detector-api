@@ -1,4 +1,5 @@
 const { Frame } = require('../../model/');
+const { upload_frame } = require('../../services').AWS.S3;
 const connect_to_db = require('../../database');
 
 const FRAMES = "frames";
@@ -18,8 +19,8 @@ class FrameController {
     app.get(`/${FRAMES}/`, async (req, res, next) => {
       try {
         const database_connection = await connect_to_db();
-        const cameras = await Frame.find();
-        res.send(cameras);
+        const frames = await Frame.find();
+        res.send(frames);
       } catch(err) {
         next(err);
       }
@@ -46,10 +47,13 @@ class FrameController {
           console.log("no files");
         }
 
-        console.log(req.files.frame);
+        console.log(typeof req.files.frame);
+        console.log(`Saved ${req.files.frame.name} to S3`);
 
         const database_connect = await connect_to_db();
         const new_frame = await new Frame({camera_id}).save();
+
+        upload_frame(camera_id, new_frame._id, req.files.frame.data);
         res.send(new_frame);
       } catch(err) {
         next(err);
