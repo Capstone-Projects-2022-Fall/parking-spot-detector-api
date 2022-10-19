@@ -1,25 +1,26 @@
-const { Camera } = require('../../model/');
+const { Frame } = require('../../model/');
+const { upload_frame } = require('../../services').AWS.S3;
 const connect_to_db = require('../../database');
 
 const FRAMES = "frames";
 
 /*
-  CameraController
+  FrameController
 
   Post(:first_name, :last_name, :email, :phone_number)
-    -> Register Camera
-  Get(:id) -> Get Camera
-  Delete(:id) -> Delete Camera
-  Update({token => new_value}) -> Update Camera
+    -> Register Frame
+  Get(:id) -> Get Frame
+  Delete(:id) -> Delete Frame
+  Update({token => new_value}) -> Update Frame
 */
 
-class CameraController {
+class FrameController {
   constructor(app) {
     app.get(`/${FRAMES}/`, async (req, res, next) => {
       try {
         const database_connection = await connect_to_db();
-        const cameras = await Camera.find();
-        res.send(cameras);
+        const frames = await Frame.find();
+        res.send(frames);
       } catch(err) {
         next(err);
       }
@@ -28,7 +29,7 @@ class CameraController {
     app.get(`/${FRAMES}/:id`, async (req, res, next) => {
       try {
         const database_connection = await connect_to_db();
-        const camera = Camera.find({_id: req.params["id"]});
+        const camera = Frame.find({_id: req.params["id"]});
         res.send(camera);
       } catch(err) {
         next(err);
@@ -37,9 +38,23 @@ class CameraController {
 
     app.post(`/${FRAMES}`, async (req, res, next) => {
       try {
+        const camera_id = req.query.camera_id; // get camera_id from session
+
+        console.log(camera_id);
+
+        if(!req.files) {
+          // error no file was uploaded.
+          console.log("no files");
+        }
+
+        console.log(typeof req.files.frame);
+        console.log(`Saved ${req.files.frame.name} to S3`);
+
         const database_connect = await connect_to_db();
-        const new_camera = await new Camera(req.body).save();
-        res.send(new_camera);
+        const new_frame = await new Frame({camera_id}).save();
+
+        upload_frame(camera_id, new_frame._id, req.files.frame.data);
+        res.send(new_frame);
       } catch(err) {
         next(err);
       }
@@ -48,7 +63,7 @@ class CameraController {
     app.delete(`/${FRAMES}/:id`, async (req, res) => {
       try {
         const database_connect = await connect_to_db();
-        const deleted_status = await Camera.deleteOne({_id: req.params["id"]});
+        const deleted_status = await Frame.deleteOne({_id: req.params["id"]});
         res.send(deleted_status);
       } catch(err) {
         next(err);
@@ -57,4 +72,4 @@ class CameraController {
   }
 }
 
-module.exports = CameraController;
+module.exports = FrameController;
