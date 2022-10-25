@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha --recursive --exit",
     "start": "node src/index.js --run-local",
+    "start-deb": "node inspect src/index.js --run-local",
     "configure-dev": "./scripts/install_dev_env.sh",
     "drop-database": "./scripts/drop_database_table.sh"
   },
@@ -13,9 +14,21 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.4.0",
+    "aws-sdk": "^2.1233.0",
+    "body-parser": "^1.20.1",
+    "connect-ensure-login": "^0.1.1",
+    "connect-mongodb-session": "^3.1.1",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
+    "express-fileupload": "^1.4.0",
+    "express-sesssion": "^1.15.5",
+    "lodash": "^4.17.21",
     "mongodb": "^4.10.0",
     "mongoose": "^6.6.3",
+    "morgan": "^1.10.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.1.2",
     "path": "^0.12.7",
     "serve-favicon": "^2.5.0",
     "tinydb": "^0.1.0"
