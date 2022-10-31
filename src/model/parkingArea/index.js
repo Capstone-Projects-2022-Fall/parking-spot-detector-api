@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const ParkingAreaSchema = new Schema({
-    _id: Schema.Types.ObjectId,
     address: {
         type: String,
         required: true
@@ -35,7 +34,6 @@ const ParkingAreaSchema = new Schema({
         required: true,
         default: 0
     },
-
 }, {
     strict: true
 });

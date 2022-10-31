@@ -11,6 +11,7 @@ const PA = "parkingarea";
 class ParkingAreaController {
     constructor(app) {
         app.get(`/${PA}/`, async (req, res, next) => {
+            ParkingArea.init();
             try {
                 const database_connection = await connect_to_db();
                 const areas = await ParkingArea.find();
@@ -21,6 +22,7 @@ class ParkingAreaController {
         });
 
         app.get(`/${PA}/:id`, async (req, res, next) => {
+            ParkingArea.init();
             try {
                 const database_connection = await connect_to_db();
                 const area = await ParkingArea.find({_id: req.params["id"]});
@@ -31,6 +33,7 @@ class ParkingAreaController {
         });
 
         app.post(`/${PA}/`, async (req, res, next) => {
+            ParkingArea.init();
             try {
                 const database_connection = await connect_to_db();
                 const area = await new ParkingArea(req.body).save();
@@ -41,6 +44,7 @@ class ParkingAreaController {
         });
 
         app.delete(`/${PA}/:id`, async (req, res, next) => {
+            ParkingArea.init();
             try {
                 const database_connection = await connect_to_db();
                 const deleteArea = await ParkingArea.deleteOne({_id: req.params['id']});
