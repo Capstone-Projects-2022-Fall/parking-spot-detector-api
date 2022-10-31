@@ -4,6 +4,7 @@ const { upload_mask } = require('../../services').AWS.S3;
 
 const CAMERAS = "cameras";
 const MASK = "mask";
+const LATEST = "latest";
 
 /*
   CameraController
@@ -23,6 +24,18 @@ class CameraController {
         const cameras = await Camera.find();
         res.send(cameras);
       } catch (err) {
+        next(err);
+      }
+    });
+
+    app.get(`/${CAMERAS}/:id/${LATEST}`, async (req, res, next) => {
+      try {
+        const camera_id = req.params["id"]; // get camera_id from session
+
+
+
+        res.send(response);
+      } catch(err) {
         next(err);
       }
     });
