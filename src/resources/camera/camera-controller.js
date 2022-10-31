@@ -1,4 +1,4 @@
-const { Camera } = require('../../model/');
+const { Camera, Frame } = require('../../model/');
 const connect_to_db = require('../../database');
 const { upload_mask } = require('../../services').AWS.S3;
 
@@ -22,7 +22,7 @@ class CameraController {
         const database_connection = await connect_to_db();
         const cameras = await Camera.find();
         res.send(cameras);
-      } catch(err) {
+      } catch (err) {
         next(err);
       }
     });
@@ -51,7 +51,7 @@ class CameraController {
         const database_connection = await connect_to_db();
         const camera = await Camera.find({_id: req.params["id"]});
         res.send(camera);
-      } catch(err) {
+      } catch (err) {
         next(err);
       }
     });
@@ -77,7 +77,7 @@ class CameraController {
         const database_connect = await connect_to_db();
         const new_camera = await new Camera(req.body).save();
         res.send(new_camera);
-      } catch(err) {
+      } catch (err) {
         next(err);
       }
     });
@@ -85,9 +85,21 @@ class CameraController {
     app.delete(`/${CAMERAS}/:id`, async (req, res) => {
       try {
         const database_connect = await connect_to_db();
-        const deleted_status = await Camera.deleteOne({_id: req.params["id"]});
+        const deleted_status = await Camera.deleteOne({ _id: req.params["id"] });
         res.send(deleted_status);
-      } catch(err) {
+      } catch (err) {
+        next(err);
+      }
+    });
+
+    // frames from a particular camera
+    app.get(`/${CAMERAS}/:id/frames`, async (req, res, next) => {
+      try {
+        const database_connect = await connect_to_db();
+        const camera = await Camera.find({_id: req.params['_id']});
+        const frames = await Frame.find({camera_id: camera['_id']});
+        res.send(frames);
+      } catch (err) {
         next(err);
       }
     });
