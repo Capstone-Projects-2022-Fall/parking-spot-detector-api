@@ -7,8 +7,7 @@ const FRAMES = "frames";
 /*
   FrameController
 
-  Post(:first_name, :last_name, :email, :phone_number)
-    -> Register Frame
+  Post(:camera_id, :bytes, :processed, :datetime) -> Register Frame
   Get(:id) -> Get Frame
   Delete(:id) -> Delete Frame
   Update({token => new_value}) -> Update Frame
@@ -29,8 +28,8 @@ class FrameController {
     app.get(`/${FRAMES}/:id`, async (req, res, next) => {
       try {
         const database_connection = await connect_to_db();
-        const camera = Frame.find({_id: req.params["id"]});
-        res.send(camera);
+        const frame = Frame.find({_id: req.params["_id"]});
+        res.send(frame);
       } catch(err) {
         next(err);
       }
@@ -51,8 +50,8 @@ class FrameController {
         console.log(`Saved ${req.files.frame.name} to S3`);
 
         const database_connect = await connect_to_db();
-        const new_frame = await new Frame({camera_id}).save();
-
+        const new_frame = await new Frame(req.body).save();
+        
         upload_frame(camera_id, new_frame._id, req.files.frame.data);
         res.send(new_frame);
       } catch(err) {
@@ -60,7 +59,7 @@ class FrameController {
       }
     });
 
-    app.delete(`/${FRAMES}/:id`, async (req, res) => {
+    app.delete(`/${FRAMES}/:id`, async (req, res, next) => {
       try {
         const database_connect = await connect_to_db();
         const deleted_status = await Frame.deleteOne({_id: req.params["id"]});
