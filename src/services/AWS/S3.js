@@ -110,11 +110,9 @@ async function get_latest_frame(camera_id) {
       Key: `latest_frames/${camera_id}`
     }, function(err, data) {
       if(err) {
-        console.log("error:");
         console.log(err);
         resolve(err);
       } else {
-        console.log("data:");
         console.log(data);
         resolve(data.Body);
       }
