@@ -1,6 +1,6 @@
 const { Camera, Frame } = require('../../model/');
 const connect_to_db = require('../../database');
-const { upload_mask } = require('../../services').AWS.S3;
+const { upload_mask, get_latest_frame } = require('../../services').AWS.S3;
 
 const CAMERAS = "cameras";
 const MASK = "mask";
@@ -31,9 +31,7 @@ class CameraController {
     app.get(`/${CAMERAS}/:id/${LATEST}`, async (req, res, next) => {
       try {
         const camera_id = req.params["id"]; // get camera_id from session
-
-
-
+        const response = await get_latest_frame(camera_id);
         res.send(response);
       } catch(err) {
         next(err);

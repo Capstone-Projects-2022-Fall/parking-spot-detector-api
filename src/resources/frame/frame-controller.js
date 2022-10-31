@@ -37,7 +37,9 @@ class FrameController {
 
     app.post(`/${FRAMES}`, async (req, res, next) => {
       try {
-        const camera_id = req.query.camera_id; // get camera_id from session
+        console.log("recieved frame")
+
+        const camera_id = req.body.camera_id; // get camera_id from session
 
         console.log(camera_id);
 
@@ -51,7 +53,7 @@ class FrameController {
 
         const database_connect = await connect_to_db();
         const new_frame = await new Frame(req.body).save();
-        
+
         upload_frame(camera_id, new_frame._id, req.files.frame.data);
         res.send(new_frame);
       } catch(err) {
