@@ -1,7 +1,9 @@
 const { Camera, Frame } = require('../../model/');
 const connect_to_db = require('../../database');
+const { upload_mask } = require('../../services').AWS.S3;
 
 const CAMERAS = "cameras";
+const MASK = "mask";
 
 /*
   CameraController
@@ -25,12 +27,47 @@ class CameraController {
       }
     });
 
+    app.post(`/${CAMERAS}/:id/${MASK}`, async (req, res, next) => {
+      try {
+        const camera_id = req.params["id"]; // get camera_id from session
+
+        if(!req.files) {
+          // error no file was uploaded.
+          console.log("no files");
+        }
+
+        const database_connect = await connect_to_db();
+        const response = await upload_mask(camera_id, req.files.mask.data);
+
+        res.send(response);
+      } catch(err) {
+        next(err);
+      }
+    });
+
+
     app.get(`/${CAMERAS}/:id`, async (req, res, next) => {
       try {
         const database_connection = await connect_to_db();
-        const camera = Camera.find({ _id: req.params["id"] });
+        const camera = await Camera.find({_id: req.params["id"]});
         res.send(camera);
       } catch (err) {
+        next(err);
+      }
+    });
+
+    app.patch(`/${CAMERAS}/:id`, async (req, res, next) => {
+      try {
+        const database_connection = await connect_to_db();
+        const camera = Camera.find({});
+
+        const query = {_id: req.params["id"]};
+        const new_fields = req.body;
+
+
+        const response = await Camera.findOneAndUpdate(query, new_fields, {rawResult: true});
+        res.send(response);
+      } catch(err) {
         next(err);
       }
     });
