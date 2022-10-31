@@ -70,6 +70,22 @@ async function upload_frame(camera_id, frame_id, file) {
   });
 }
 
+async function get_latest_frame(camera_id) {
+  return new Promise((resolve, reject) => {
+    s3.getObject({
+      Bucket: BUCKET_NAME,
+      Key: `latest_frames/${camera_id}`
+    }, function(err, data) {
+      if(err) {
+        resolve(err);
+      } else {
+        console.log(data.Body);
+        resolve(data.Body);
+      }
+    });
+  });
+}
+
 async function upload_mask(camera_id, file) {
   return new Promise((resolve, reject) => {
     s3.putObject({
@@ -92,5 +108,6 @@ module.exports = {
   bucket_exists,
   create_bucket,
   upload_frame,
-  upload_mask
+  upload_mask,
+  get_latest_frame
 };
