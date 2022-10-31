@@ -3,21 +3,39 @@ const { Schema, model } = mongoose;
 
 const ParkingAreaSchema = new Schema({
     _id: Schema.Types.ObjectId,
-    mapsDisplay: {
+    address: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String
+    },
+    desc: {
+        type: String
+    },
+    latitude: {
+        type: Number,
+        required: true
+    },
+    longitude: {
+        type: Number,
+        required: true
+    },
+    public: {
+        type: String,
+        required: true
+    },
+    hideFromMaps: {
         type: Boolean,
         default: false,
         required: true,
     },
-    address: {
-        type: String,
-        unique: true,
-        required: true
-    },
     spots: {
         type: Number,
         required: true,
-        default: 1
-    }
+        default: 0
+    },
+
 }, {
     strict: true
 });
