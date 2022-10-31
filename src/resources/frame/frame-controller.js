@@ -1,6 +1,6 @@
 const { Frame } = require('../../model/');
-const { upload_frame } = require('../../services').AWS.S3;
 const connect_to_db = require('../../database');
+const { upload_frame } = require('../../services').AWS.S3;
 
 const FRAMES = "frames";
 
