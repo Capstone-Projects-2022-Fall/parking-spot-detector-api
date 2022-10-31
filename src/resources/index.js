@@ -3,6 +3,7 @@ const admin = require('./admin');
 const group = require('./group');
 const camera = require('./camera');
 const frame = require('./frame');
+const parkingArea = require('./parkingArea');
 const auth = require('./auth');
 
 module.exports = {
@@ -11,5 +12,6 @@ module.exports = {
   group,
   camera,
   frame,
+  parkingArea,
   auth
 };
