@@ -31,9 +31,7 @@ class CameraController {
     app.get(`/${CAMERAS}/:id/${LATEST}`, async (req, res, next) => {
       try {
         const camera_id = req.params["id"]; // get camera_id from session
-
         const response = await get_latest_frame(camera_id);
-        console.log(response);
         res.send(response);
       } catch(err) {
         next(err);
