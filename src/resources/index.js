@@ -4,6 +4,7 @@ const group = require('./group');
 const camera = require('./camera');
 const frame = require('./frame');
 const parkingArea = require('./parkingArea');
+const auth = require('./auth');
 
 module.exports = {
   user,
@@ -11,5 +12,6 @@ module.exports = {
   group,
   camera,
   frame,
-  parkingArea
+  parkingArea,
+  auth
 };

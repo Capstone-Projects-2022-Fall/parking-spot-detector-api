@@ -1,4 +1,5 @@
 const { Frame } = require('../../model/');
+const { upload_frame } = require('../../services').AWS.S3;
 const connect_to_db = require('../../database');
 
 const FRAMES = "frames";
@@ -6,8 +7,7 @@ const FRAMES = "frames";
 /*
   FrameController
 
-  Post(:camera_id, :bytes, :processed, :datetime)
-    -> Register Frame
+  Post(:camera_id, :bytes, :processed, :datetime) -> Register Frame
   Get(:id) -> Get Frame
   Delete(:id) -> Delete Frame
   Update({token => new_value}) -> Update Frame
@@ -37,8 +37,22 @@ class FrameController {
 
     app.post(`/${FRAMES}`, async (req, res, next) => {
       try {
+        const camera_id = req.query.camera_id; // get camera_id from session
+
+        console.log(camera_id);
+
+        if(!req.files) {
+          // error no file was uploaded.
+          console.log("no files");
+        }
+
+        console.log(typeof req.files.frame);
+        console.log(`Saved ${req.files.frame.name} to S3`);
+
         const database_connect = await connect_to_db();
         const new_frame = await new Frame(req.body).save();
+        
+        upload_frame(camera_id, new_frame._id, req.files.frame.data);
         res.send(new_frame);
       } catch(err) {
         next(err);
@@ -48,7 +62,7 @@ class FrameController {
     app.delete(`/${FRAMES}/:id`, async (req, res, next) => {
       try {
         const database_connect = await connect_to_db();
-        const deleted_status = await Frame.deleteOne({_id: req.params["_id"]});
+        const deleted_status = await Frame.deleteOne({_id: req.params["id"]});
         res.send(deleted_status);
       } catch(err) {
         next(err);

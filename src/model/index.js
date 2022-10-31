@@ -1,4 +1,4 @@
-const User = require('./users');
+const User = require('./user');
 const Admin = require('./admins');
 const Camera = require('./camera');
 const Group = require('./group');
