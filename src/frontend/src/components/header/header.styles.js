@@ -12,6 +12,10 @@ export const HeaderMain = styled.div`
         width: auto;
         height: 72px;
         border-radius: 12px;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 `;
 
@@ -23,10 +27,13 @@ export const HeaderTitle = styled.div`
 
 export const HeaderMenu = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
     padding: 0.25em;
     border-radius: 0.25em;
+
+    margin-left: -1em;
+    padding-right: 2em;
 `;
 
 export const HeaderInputStyle = styled.div`

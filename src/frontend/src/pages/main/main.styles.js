@@ -4,6 +4,7 @@ import * as colors from '../../constants/colors';
 export const Title = styled.div`
     font-weight: bold;
     font-size: 32px;
+    margin: 0 6.25%;
 
     user-select: none;
 `;
