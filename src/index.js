@@ -28,12 +28,7 @@ const DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017/park
 // });
 
 const RUN_LOCAL_FLAG = "--run-local";
-
-var runLocal = false;
-
-if(argv.includes(RUN_LOCAL_FLAG)) {
-  runLocal = true;
-}
+var runLocal = argv.includes(RUN_LOCAL_FLAG);
 
 // app.use(session({
 //   secret: 'This is a secret',
@@ -60,11 +55,13 @@ app.use(express.json());
 app.use(cors());
 app.use(body_parser.urlencoded({extended: true}));
 
-if(RUN_LOCAL_FLAG) {
+if (RUN_LOCAL_FLAG) {
   app.use(morgan('dev'));
 }
 
 app.use(favicon(path.join(__dirname, "favicon", "psdlogo.png")));
+
+app.use(express.static(path.join(__dirname, "frontend", "build")));
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -79,10 +76,9 @@ function mongoErrorHandler (err, req, res, next) {
       .status(500)
       .json({ error: err.message });
 }
-
 app.use(mongoErrorHandler);
 
-if(runLocal) {
+if (runLocal) {
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
   });
