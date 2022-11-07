@@ -7,7 +7,8 @@ import {
 import {
     FlexRow,
     FlexColumn,
-    QRCodeContainer
+    QRCodeContainer,
+    ButtonContainer
 } from '../../app.styles';
 import SignIn from '../../components/signin';
 import qrCode from '../../assets/qrcode.svg';
@@ -16,7 +17,8 @@ const RegisterPage = () => {
     return (
         <RegisterMain>
             <RegisterText>
-                All new users are required to register through their phone. A sign-up form will be made for users to fill out their information and, if applicable, register their camera.
+                All new users can register through either by this website or mobile app. <br/>
+                <i>If registering with a camera, users must return to the desktop website to finish additional registration.</i>
             </RegisterText>
             <FlexRow>
                 <FlexColumn>
@@ -27,6 +29,13 @@ const RegisterPage = () => {
                             alt="QR Code for App"
                         />
                     </QRCodeContainer>
+                    <ButtonContainer>
+                        <input
+                            value='Continue registering on desktop'
+                            type='button' 
+                            onClick={() => window.open('/register/form', '_self')}
+                        />
+                    </ButtonContainer>
                 </FlexColumn>
                 <FlexColumn>
                     <RegisterHeading>Already a user?</RegisterHeading>

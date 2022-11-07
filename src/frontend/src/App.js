@@ -5,7 +5,6 @@ import {
   Routes,
   Navigate
 } from 'react-router-dom';
-import './app.styles.js';
 
 import Header from './components/header';
 import Footer from './components/footer';
@@ -13,6 +12,9 @@ import Footer from './components/footer';
 import MainPage from './pages/main/index';
 import RegisterPage from './pages/register/index';
 import Error404Page from './pages/error404/index';
+import RegisterForm from './pages/register/form.register.js';
+import CameraRegister from './pages/register/camera.register';
+
 import { Container } from './app.styles.js';
 
 export default function App() {
@@ -26,6 +28,18 @@ export default function App() {
           } />
           <Route exact path="/register" element={
             <RegisterPage />
+          } />
+          <Route exact path="/register/form" element={
+            <RegisterForm />
+          } />
+          {
+            /* 
+              NOTE: /register/camera to be redirected to from app IF
+              user decides to register camera via mobile app.
+            */
+          }
+          <Route exact path="/register/camera" element={
+            <CameraRegister />
           } />
           <Route exact path="/404" element={
             <Error404Page />
