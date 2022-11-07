@@ -9,3 +9,5 @@ export const fadedBlue = "#7f92f4";
 
 export const customBlack = '#333';
 export const customWhite = '#eee';
+
+export const green = "#2ec530";
