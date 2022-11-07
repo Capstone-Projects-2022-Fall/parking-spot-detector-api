@@ -4,15 +4,21 @@ import {
   Route,
   Routes
 } from 'react-router-dom';
+import './app.styles.js';
+
+import Header from './components/header';
+import Footer from './components/footer';
 
 import MainPage from './pages/main/index';
 import RegisterPage from './pages/register/index';
 import Error404Page from './pages/error404/index';
+import { Container } from './app.styles.js';
 
 export default function App() {
   return (
     <BrowserRouter>
-      <div id="app">
+      <Header />
+      <Container>
         <Routes>
           <Route exact path="/" element={
             <MainPage />
@@ -24,7 +30,8 @@ export default function App() {
             <Error404Page />
           } />
         </Routes>
-      </div>
+      </Container>
+      <Footer />
     </BrowserRouter>
   );
 };
