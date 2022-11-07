@@ -7,3 +7,14 @@ export const Container = styled.div`
 
     background-color: ${colors.customWhite};
 `;
+
+export const FlexColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const FlexRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    
+`;

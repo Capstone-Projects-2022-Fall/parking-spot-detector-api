@@ -2,7 +2,8 @@ import React from 'react';
 import {
   BrowserRouter,
   Route,
-  Routes
+  Routes,
+  Navigate
 } from 'react-router-dom';
 import './app.styles.js';
 
@@ -26,8 +27,11 @@ export default function App() {
           <Route exact path="/register" element={
             <RegisterPage />
           } />
-          <Route exact path="*" element={
+          <Route exact path="/404" element={
             <Error404Page />
+          } />
+          <Route exact path="*" element={
+            <Navigate to="/404" />
           } />
         </Routes>
       </Container>
