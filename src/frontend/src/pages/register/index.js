@@ -13,7 +13,7 @@ import {
 import SignIn from '../../components/signin';
 import qrCode from '../../assets/qrcode.svg';
 
-const RegisterPage = () => {
+const RegisterPage = ({ loggedIn, handleLogin }) => {
     return (
         <RegisterMain>
             <RegisterText>
@@ -39,7 +39,10 @@ const RegisterPage = () => {
                 </FlexColumn>
                 <FlexColumn>
                     <RegisterHeading>Already a user?</RegisterHeading>
-                    <SignIn />
+                    <SignIn
+                        loggedIn={loggedIn}
+                        handleLogin={handleLogin} 
+                    />
                 </FlexColumn>
             </FlexRow>
         </RegisterMain>

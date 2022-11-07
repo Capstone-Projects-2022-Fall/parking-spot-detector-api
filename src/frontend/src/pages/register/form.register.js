@@ -15,7 +15,7 @@ const RegisterForm = () => {
     })
 
     const validEntries = () => {
-        const { userName, phoneNumber, password } = newUserData;
+        const { userName, phoneNumber } = newUserData;
         if (userName.length < 8 || phoneNumber.length < 10) {
             setSubmitAttempt(true);
             return false;
@@ -37,6 +37,12 @@ const RegisterForm = () => {
             <RegisterFormTitle>
                 Registration for New Account
             </RegisterFormTitle>
+            <TextField 
+                placeholder='Enter your first name'
+            />
+            <TextField 
+                placeholder='Enter your last name'
+            />
             <TextField
                 placeholder="Enter user name"
                 value="userName"
@@ -53,6 +59,9 @@ const RegisterForm = () => {
             <RegisterFormTidbit>
                 Phone number should be written as 1234567890
             </RegisterFormTidbit>
+            <TextField 
+                placeholder='Enter your email address'
+            />
             <TextField
                 placeholder="Enter your password"
                 special='password'
@@ -64,7 +73,6 @@ const RegisterForm = () => {
             <RegisterFormTidbit>
                 Passwords must match, and should be at least 8 characters long.
             </RegisterFormTidbit>
-            <br />
             <Container style={{ width: 'fit-content' }}>
                 <FlexRow>
                     <b>Are you registering a camera?</b>
@@ -84,7 +92,6 @@ const RegisterForm = () => {
                     </>
                 }
             </Container>
-            <br /><br />
             <FlexColumn>
                 <input
                     type='submit'

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter,
   Route,
@@ -18,16 +18,18 @@ import CameraRegister from './pages/register/camera.register';
 import { Container } from './app.styles.js';
 
 export default function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <BrowserRouter>
-      <Header />
+      <Header loggedIn={loggedIn} handleLogin={setLoggedIn} />
       <Container>
         <Routes>
           <Route exact path="/" element={
-            <MainPage />
+            <MainPage loggedIn={loggedIn} handleLogin={setLoggedIn} />
           } />
           <Route exact path="/register" element={
-            <RegisterPage />
+            <RegisterPage loggedIn={loggedIn} handleLogin={setLoggedIn} />
           } />
           <Route exact path="/register/form" element={
             <RegisterForm />

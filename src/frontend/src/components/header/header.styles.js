@@ -3,7 +3,7 @@ import * as colors from '../../constants/colors';
 
 export const HeaderMain = styled.div`
     width: 100%;
-    height: 10vh;
+    height: ${props => props.loggedIn ? '15vh' : '10vh'};
     background-color: ${colors.fadedBlue};
 
     padding: 0.5em 1em;
@@ -59,4 +59,15 @@ export const HeaderInputStyle = styled.div`
             transition-duration: 0.5s;
         }
     }
+`;
+
+export const LogInHeader = styled.div`
+    height: 4vh;
+    width: auto;
+    padding: 0.25em 0.75em;
+    margin-left: -1em;
+    background-color: ${colors.darkBlue};
+    border: 2px solid ${colors.customBlack};
+
+    color: ${colors.customWhite};
 `;

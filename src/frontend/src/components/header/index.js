@@ -3,15 +3,17 @@ import {
     HeaderMain,
     HeaderTitle,
     HeaderMenu,
-    HeaderInputStyle
+    HeaderInputStyle,
+    LogInHeader
 } from './header.styles';
-import { FlexRow } from '../../app.styles';
+import { ButtonContainer, FlexRow } from '../../app.styles';
 
 import mainLogo from '../../assets/mainlogo.png';
 
-const Header = () => {
+const Header = ({ loggedIn, handleLogin }) => {
+
     return (
-        <HeaderMain>
+        <HeaderMain loggedIn={loggedIn}>
             <FlexRow>
                 <>
                     <img
@@ -26,11 +28,26 @@ const Header = () => {
                 </>
                 <HeaderMenu>
                     <HeaderInputStyle>
-                        <input 
-                            type="button"
-                            onClick={() => window.open('/register', '_self')}
-                            value="Register"
-                        />
+                        {
+                            loggedIn ? (
+                                <input 
+                                    type='button'
+                                    value="Sign Out"
+                                    onClick={() => {
+                                        setTimeout(() => {
+                                            handleLogin(false);
+                                            window.reload('/');
+                                        }, [1000]);
+                                    }}
+                                />    
+                            ) : (
+                                <input 
+                                    type="button"
+                                    onClick={() => window.open('/register', '_self')}
+                                    value="Register"
+                                />
+                            )
+                        }
                     </HeaderInputStyle>
                     <HeaderInputStyle>
                         <input
@@ -41,6 +58,36 @@ const Header = () => {
                     </HeaderInputStyle>
                 </HeaderMenu>
             </FlexRow>
+            {
+                loggedIn &&
+                <LogInHeader>
+                    <FlexRow>
+                        <span>Logged in as: {'test user'}</span>
+                        <FlexRow width='200px' style={{
+                            marginTop: "-1em"
+                        }}>
+                            <ButtonContainer>
+                                <input
+                                    value="Profile"
+                                    type="button"
+                                    style={{ 
+                                        padding: '0.5em',
+                                     }} 
+                                />
+                            </ButtonContainer>
+                            <ButtonContainer>
+                                <input
+                                    value="Settings"
+                                    type='button'
+                                    style={{
+                                        padding: '0.5em'
+                                    }} 
+                                />
+                            </ButtonContainer>
+                        </FlexRow>
+                    </FlexRow>
+                </LogInHeader>    
+            }
         </HeaderMain>
     );
 };

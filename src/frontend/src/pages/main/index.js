@@ -1,10 +1,12 @@
 import React from 'react';
 import { Title, Slideshow } from './main.styles';
 import { FlexRow } from '../../app.styles';
+
 import SignIn from '../../components/signin';
+import Catalog from '../../components/catalog';
 import sampleImg from '../../assets/sample.jpg';
 
-const MainPage = () => {
+const MainPage = ({ loggedIn, handleLogin }) => {
     return (
         <>
             <Title>Welcome to Parking Spot Detector!</Title>
@@ -15,7 +17,16 @@ const MainPage = () => {
                         alt="Cars" 
                     />
                 </Slideshow>
-                <SignIn />
+                {
+                    loggedIn ? (
+                        <Catalog />
+                    ) : (
+                        <SignIn
+                            loggedIn={loggedIn}
+                            handleLogin={handleLogin} 
+                        />
+                    )
+                }
             </FlexRow>
         </>
     );
