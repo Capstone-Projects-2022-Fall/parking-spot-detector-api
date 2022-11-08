@@ -7,7 +7,7 @@
     "test": "mocha --recursive --exit",
     "start": "node src/index.js --run-local",
     "start-deb": "node inspect src/index.js --run-local",
-    "frontend": "cd src/frontend && npm start",
+    "frontend": "cd frontend && npm start",
     "concurrent": "concurrently \"npm run start\" \"npm run frontend\"",
     "configure-dev": "./scripts/install_dev_env.sh",
     "drop-database": "./scripts/drop_database_table.sh"
