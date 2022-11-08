@@ -53,7 +53,7 @@ const Header = ({ loggedIn, handleLogin }) => {
                         <input
                             type='button'
                             value='About Us' 
-                            onClick={() => window.alert("Come back later")}
+                            onClick={() => window.open('/about', '_self')}
                         />
                     </HeaderInputStyle>
                 </HeaderMenu>

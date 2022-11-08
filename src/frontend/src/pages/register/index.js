@@ -3,7 +3,7 @@ import {
     RegisterMain,
     RegisterHeading,
     RegisterText
-} from './styles.registration';
+} from './register.styles';
 import {
     FlexRow,
     FlexColumn,

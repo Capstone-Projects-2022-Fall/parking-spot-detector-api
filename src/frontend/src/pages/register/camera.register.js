@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonContainer, Container, FlexRow } from '../../app.styles';
 import TextField from '../../components/textfield';
-import { RegisterFormTidbit, RegisterFormTitle } from './styles.registration';
+import { RegisterFormTidbit, RegisterFormTitle } from './register.styles';
 
 const CameraRegister = () => {
     return (
