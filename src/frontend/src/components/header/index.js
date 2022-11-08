@@ -73,6 +73,7 @@ const Header = ({ loggedIn, handleLogin }) => {
                                     style={{ 
                                         padding: '0.5em',
                                      }} 
+                                     onClick={() => window.open('/profile', '_self')}
                                 />
                             </ButtonContainer>
                             <ButtonContainer>
@@ -82,6 +83,7 @@ const Header = ({ loggedIn, handleLogin }) => {
                                     style={{
                                         padding: '0.5em'
                                     }} 
+                                    onClick={() => window.open('/settings', '_self')}
                                 />
                             </ButtonContainer>
                         </FlexRow>

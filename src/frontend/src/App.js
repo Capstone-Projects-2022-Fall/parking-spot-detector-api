@@ -19,6 +19,7 @@ import AboutPage from './pages/about';
 import UserCameraPage from './pages/cameras';
 
 import { Container } from './app.styles.js';
+import ProfilePage from './pages/profile';
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -55,6 +56,9 @@ export default function App() {
             /* anything involving user information will preface 
               with ** '/profile' ** */
           }
+          <Route exact path="/profile" element={
+            <ProfilePage />
+          } />
           <Route exact path="/profile/cameras" element={
             <UserCameraPage />
           } />

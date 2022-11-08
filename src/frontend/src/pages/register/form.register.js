@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Container, FlexRow, FlexColumn } from '../../app.styles';
-import { RegisterFormTitle, RegisterFormTidbit } from './styles.registration';
+import { RegisterFormTitle, RegisterFormTidbit } from './register.styles';
 
 import TextField from '../../components/textfield';
 
@@ -9,14 +9,32 @@ const RegisterForm = () => {
     const [willRegisterCamera, setWillRegisterCamera] = useState(false);
     const [submitAttempt, setSubmitAttempt] = useState(false);
     const [newUserData, setNewUserData] = useState({
+        firstName: '',
+        lastName: '',
         userName: '',
         phoneNumber: '',
+        email: '',
         password: '',
+        confirmPassword: ''
     })
 
     const validEntries = () => {
-        const { userName, phoneNumber } = newUserData;
-        if (userName.length < 8 || phoneNumber.length < 10) {
+        const { 
+            firstName, lastName, userName, 
+            phoneNumber, email, password, confirmPassword 
+        } = newUserData;
+        /* passwords do not match or are not the correct length */
+        if (password !== confirmPassword || (password.length < 8 && confirmPassword.length < 8)) {
+            setSubmitAttempt(true);
+            return false;
+        }
+        /* user name or phone number lengths are incomptiable */
+        if (userName.length < 6 || phoneNumber.length < 10) {
+            setSubmitAttempt(true);
+            return false;
+        }
+        /* & if any other fields are not filled in */
+        if (firstName.length < 1 || lastName.length < 1 || !email.includes('@')) {
             setSubmitAttempt(true);
             return false;
         }
@@ -39,9 +57,13 @@ const RegisterForm = () => {
             </RegisterFormTitle>
             <TextField 
                 placeholder='Enter your first name'
+                value='firstName'
+                onChange={handleChange}
             />
             <TextField 
                 placeholder='Enter your last name'
+                value='lastName'
+                onChange={handleChange}
             />
             <TextField
                 placeholder="Enter user name"
@@ -49,7 +71,7 @@ const RegisterForm = () => {
                 onChange={handleChange}
             />
             <RegisterFormTidbit>
-                User name must be at least 8 characters long.
+                User name must be at least 6 characters long.
             </RegisterFormTidbit>
             <TextField
                 placeholder="Enter your phone number"
@@ -61,14 +83,20 @@ const RegisterForm = () => {
             </RegisterFormTidbit>
             <TextField 
                 placeholder='Enter your email address'
+                value='email'
+                onChange={handleChange}
             />
             <TextField
                 placeholder="Enter your password"
                 special='password'
+                value='password'
+                onChange={handleChange}
             />
             <TextField
                 placeholder="Confirm password"
                 special='password'
+                value='confirmPassword'
+                onChange={handleChange}
             />
             <RegisterFormTidbit>
                 Passwords must match, and should be at least 8 characters long.
