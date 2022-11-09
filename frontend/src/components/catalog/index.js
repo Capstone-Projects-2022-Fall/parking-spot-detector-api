@@ -19,12 +19,6 @@ const Catalog = () => {
                     }}
                 />
             </CatalogButton>
-            <CatalogButton>
-                <input
-                    value='View history'
-                    type='button' 
-                />
-            </CatalogButton>
         </CatalogMain>
     );
 };

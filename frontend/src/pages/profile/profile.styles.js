@@ -37,9 +37,8 @@ export const ProfileSubcontainer = styled.div`
     border-radius: 0.25em;
     padding: 0.5em;
     user-select: none;
-
-    &:hover {
-        background-color: ${colors.green};
-        transition-duration: 0.5s;
-    }
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 `;
