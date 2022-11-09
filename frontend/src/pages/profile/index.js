@@ -5,6 +5,9 @@ import {
     ProfileContainer,
     ProfileSubcontainer
 } from './profile.styles';
+import {
+    ButtonContainer
+} from '../../app.styles';
 import axios from 'axios';
 
 const ProfilePage = () => {
@@ -40,51 +43,38 @@ const ProfilePage = () => {
             <ProfileTitle>
                 <span>
                     {`${first_name} ${last_name}`}
-                    <input
-                        style={{ margin: '0.25em 0.5em' }}
-                        type='button'
-                        value='Edit' 
-                    />
                 </span>
                 <small>{`@${user_name}`}</small>
             </ProfileTitle>
             <div>
                 Handicap: {String(handicap)}
-                <input 
-                    style={{ margin: '0.25em 0.5em' }}
-                    type='button'
-                    value='Edit'
-                />
             </div>
             <ProfileContainer>
                 <ProfileSubcontainer>
                     <div>
                         <b>Home address:</b> {address}
                     </div>
-                    <input
-                        value='Edit'
-                        type='button' 
-                    />
                 </ProfileSubcontainer>
                 <ProfileSubcontainer>
                     <div>
                         <b>Phone number:</b> {phone_number}
                     </div>
-                    <input
-                        value='Edit'
-                        type='button' 
-                    />
                 </ProfileSubcontainer>
                 <ProfileSubcontainer>
                     <div>
                         <b>Email address:</b> {email}
                     </div>
-                    <input
-                        value='Edit'
-                        type='button' 
-                    />
                 </ProfileSubcontainer>
             </ProfileContainer>
+            <ButtonContainer>
+                <input
+                    value="Edit Profile"
+                    type='button'
+                    onClick={() => window.open('/settings', '_self')} 
+                />
+                <br/>
+                <small>Click on 'Account Settings', then to 'Edit Profile'</small>
+            </ButtonContainer>
         </ProfileMain>
     );
 };

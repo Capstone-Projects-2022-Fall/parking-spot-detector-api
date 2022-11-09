@@ -14,7 +14,6 @@ import {
     FramePictureStyle,
     FrameMetadata
 } from './frames.styles';
-
 import samplePicture from '../../assets/sample.jpg';
 import { ButtonContainer } from '../../app.styles';
 import * as colors from '../../constants/colors';
@@ -28,10 +27,11 @@ const CameraFrameHistoryPage = () => {
     const [numOfFrames, setNumOfFrames] = useState(0);
 
     const [filterSelection, setFilterSelection] = useState('');
-    const [filterResults, setFilterResults] = useState(false);
+    /*const [filterResults, setFilterResults] = useState({
+    });*/
     const toggleFilter = (e) => {
         const text = e.target.className;
-        setFilterSelection(text === filterSelection ? '' : text);
+        setFilterSelection(text !== filterSelection ? text : '');
     }
 
     useEffect(() => {
@@ -176,6 +176,9 @@ const CameraFrameHistoryPage = () => {
         ),
         'frameId': (
             <>
+                <small>
+                    <b>Find by frame ID &emsp;</b>
+                </small>
                 <input
                     placeholder="Enter frame ID... " 
                     type='text'
@@ -218,7 +221,7 @@ const CameraFrameHistoryPage = () => {
                             <input
                                 type='button'
                                 value='SEARCH'
-                                onClick={() => console.log("PING")} 
+                                onClick={() => console.log(':-)')} 
                             />
                         </ButtonContainer>
                     </FilterOptions>
@@ -303,6 +306,7 @@ const CameraFrameHistoryPage = () => {
                     })
                 }
             </FrameList>
+            <br/><br/>
         </FramePageContainer>
     );
 };
