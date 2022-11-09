@@ -50,3 +50,43 @@ export const FrameMetadata = styled.div`
         font-size: 12px;
     }
 `;
+
+export const FilterContainer = styled.div`
+    background-color: ${colors.customWhite};
+    border: 2px solild ${colors.darkBlue};
+
+    border-radius: 1em;
+
+    padding: 1em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`;
+
+export const FilterMenu = styled.div`
+    span {
+        border-bottom: 3px solid ${colors.customBlack};
+        padding: 0 1em;
+        margin: 0 1em;
+        user-select: none;
+
+        &:hover {
+            cursor: pointer;
+            font-weight: bold;
+        }
+    }
+`;
+
+export const FilterOptions = styled.div`
+    margin-top: 1em;
+    padding: 1em;
+    border: 1px solid black;
+    border-radius: 0.5em;
+
+    max-height: 112px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`;
