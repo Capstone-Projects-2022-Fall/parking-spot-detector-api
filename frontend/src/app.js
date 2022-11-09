@@ -15,7 +15,7 @@ import Error404Page from './pages/error404/index';
 import RegisterForm from './pages/register/form.register.js';
 import CameraRegister from './pages/register/camera.register';
 import AboutPage from './pages/about';
-
+import SettingsPage from './pages/settings';
 import UserCameraPage from './pages/cameras';
 import CameraFrameHistoryPage from './pages/frames';
 
@@ -65,6 +65,9 @@ export default function App() {
           } />
           <Route exact path="/profile/cameras/:id/frames" element={
             <CameraFrameHistoryPage />
+          } />
+          <Route exact path="/settings" element={
+            <SettingsPage />
           } />
           {
             /* error pages, redirect to 404 if invalid link*/
