@@ -17,6 +17,11 @@ export const HeaderMain = styled.div`
             cursor: pointer;
         }
     }
+
+    /* testing for mobile responsive design */
+    @media screen and (max-width: 320px) {
+        background-color: red;
+    }
 `;
 
 export const HeaderTitle = styled.div`

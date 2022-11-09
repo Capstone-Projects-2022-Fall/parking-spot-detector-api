@@ -17,6 +17,7 @@ import CameraRegister from './pages/register/camera.register';
 import AboutPage from './pages/about';
 
 import UserCameraPage from './pages/cameras';
+import CameraFrameHistoryPage from './pages/frames';
 
 import { Container } from './app.styles.js';
 import ProfilePage from './pages/profile';
@@ -62,7 +63,9 @@ export default function App() {
           <Route exact path="/profile/cameras" element={
             <UserCameraPage />
           } />
-
+          <Route exact path="/profile/cameras/:id/frames" element={
+            <CameraFrameHistoryPage />
+          } />
           {
             /* error pages, redirect to 404 if invalid link*/
           }

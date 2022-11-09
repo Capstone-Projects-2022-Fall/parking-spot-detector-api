@@ -14,6 +14,9 @@ const Catalog = () => {
                 <input
                     value='Check cameras'
                     type='button' 
+                    onClick={() => {
+                        window.open('/profile/cameras', '_self');
+                    }}
                 />
             </CatalogButton>
             <CatalogButton>

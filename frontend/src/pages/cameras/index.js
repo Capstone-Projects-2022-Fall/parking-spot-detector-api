@@ -1,12 +1,13 @@
-import React, { useEffect, useState }from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const UserCameraPage = () => {
     const [cameraData, setCameraData] = useState([]);
+    const [id, setId] = useState();
 
     useEffect(() => {
         const fetchCameras = async () => {
-            const data = await axios.get('http://127.0.0.1:8080/cameras');
+            const data = await axios.get('http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/cameras/');
             setCameraData(data.data);
         }; 
         fetchCameras();
@@ -18,10 +19,25 @@ const UserCameraPage = () => {
             <div>
                 {
                     cameraData.map((item, index) => {
+                        const newID = item['_id'];
                         return (
-                            <small key={index}>
-                                {item['_id']}
-                            </small>
+                            <div key={index}>
+                                <span style={{ paddingRight: '1em' }}>
+                                    {newID}
+                                </span>
+                                <input 
+                                    type='button'
+                                    value='GO'
+                                    onMouseOver={(e) => {
+                                        setId(newID);
+                                    }}
+                                    onClick={() => {
+                                        setTimeout(() => {
+                                            window.open(`/profile/cameras/${id}/frames`, '_self');
+                                        }, [500]);
+                                    }}
+                                />
+                            </div>
                         );
                     })
                 }
