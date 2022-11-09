@@ -11,7 +11,7 @@ export const FlexColumn = styled.div`
     display: flex;
     flex-direction: column;
 
-    justify-content: space-around;
+    justify-content: ${props => props.spaced ? 'space-around' : 'default'};
 
     height: ${props => props.height ? props.height : 'default'};
 `;
@@ -20,7 +20,7 @@ export const FlexRow = styled.div`
     display: flex;
     flex-direction: row; 
     
-    justify-content: space-around;
+    justify-content: ${props => props.spaced ? 'space-around' : 'default'};
 
     width: ${props => props.width ? props.width : 'default'};
 `;

@@ -10,7 +10,7 @@ const MainPage = ({ loggedIn, handleLogin }) => {
     return (
         <>
             <Title>Welcome to Parking Spot Detector!</Title>
-            <FlexRow>
+            <FlexRow spaced>
                 <Slideshow>
                     <img
                         src={sampleImg}

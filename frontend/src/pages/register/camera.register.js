@@ -9,7 +9,7 @@ const CameraRegister = () => {
             <RegisterFormTitle>
                 Camera Registration Form
             </RegisterFormTitle>
-            <FlexRow width='50%'>
+            <FlexRow spaced width='50%'>
                 <RegisterFormTidbit style={{ padding: '0.5em', margin: '0.5em' }}>
                     You checked to register a camera. If you believe this was a mistake or do not intend on registering a camera, skip.
                 </RegisterFormTidbit>

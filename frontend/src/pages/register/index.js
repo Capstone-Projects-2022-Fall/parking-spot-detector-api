@@ -20,8 +20,8 @@ const RegisterPage = ({ loggedIn, handleLogin }) => {
                 All new users can register through either by this website or mobile app. <br/>
                 <i>If registering with a camera, users must return to the desktop website to finish additional registration.</i>
             </RegisterText>
-            <FlexRow>
-                <FlexColumn>
+            <FlexRow spaced>
+                <FlexColumn spaced>
                     <RegisterHeading>First time users?</RegisterHeading>
                     <QRCodeContainer>
                         <img
@@ -37,7 +37,7 @@ const RegisterPage = ({ loggedIn, handleLogin }) => {
                         />
                     </ButtonContainer>
                 </FlexColumn>
-                <FlexColumn>
+                <FlexColumn spaced>
                     <RegisterHeading>Already a user?</RegisterHeading>
                     <SignIn
                         loggedIn={loggedIn}

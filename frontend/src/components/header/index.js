@@ -14,7 +14,7 @@ const Header = ({ loggedIn, handleLogin }) => {
 
     return (
         <HeaderMain loggedIn={loggedIn}>
-            <FlexRow>
+            <FlexRow spaced>
                 <>
                     <img
                         className="logo"
@@ -61,9 +61,9 @@ const Header = ({ loggedIn, handleLogin }) => {
             {
                 loggedIn &&
                 <LogInHeader>
-                    <FlexRow>
+                    <FlexRow spaced>
                         <span>Logged in as: {'test user'}</span>
-                        <FlexRow width='200px' style={{
+                        <FlexRow spaced width='200px' style={{
                             marginTop: "-1em"
                         }}>
                             <ButtonContainer>

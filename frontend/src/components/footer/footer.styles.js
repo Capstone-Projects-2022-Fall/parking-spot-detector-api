@@ -3,7 +3,7 @@ import * as colors from '../../constants/colors';
 
 export const FooterMain = styled.div`
     width: 100%;
-    height: 8vh;
+    height: 6vh;
 
     position: fixed;
     bottom: 0;

@@ -30,7 +30,7 @@ const SignIn = ({ loggedIn, handleLogin }) => {
     const [useEmail, setUseEmail] = useState(false);
     const ToggleLoginInfo = () => {
         return (
-            <FlexRow>
+            <FlexRow spaced>
                 <TogglePiece 
                     className='phone' 
                     selected={!!!useEmail}

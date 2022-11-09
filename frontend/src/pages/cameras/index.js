@@ -25,6 +25,21 @@ const UserCameraPage = () => {
 
     return (
         <CameraPageContainer>
+            <div style={{
+                display: 'flex', flexDirection: 'row', justifyContent: 'space-between'
+            }}>
+                <span>
+                    <b>Primary Camera:</b> XXXXXXXXXXXXXXXXXXXXXXXXX
+                </span>
+                <ButtonContainer backgroundColor='purple'>
+                    <input 
+                        type='button' 
+                        value='CHANGE' 
+                        style={{ padding: '0.5em' }} 
+                    />
+                </ButtonContainer>
+            </div>
+            <br/>
             <b>Your Registered Cameras</b>
             <div>
                 {
@@ -32,7 +47,7 @@ const UserCameraPage = () => {
                         const newID = item['_id'];
                         return (
                             <CameraInstance key={index}>
-                                <FlexRow>
+                                <FlexRow spaced>
                                     <div>
                                         <span style={{ 
                                             paddingRight: '1em',

@@ -102,7 +102,7 @@ const RegisterForm = () => {
                 Passwords must match, and should be at least 8 characters long.
             </RegisterFormTidbit>
             <Container style={{ width: 'fit-content' }}>
-                <FlexRow>
+                <FlexRow spaced>
                     <b>Are you registering a camera?</b>
                     <input
                         type='checkbox'
