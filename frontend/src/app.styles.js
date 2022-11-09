@@ -41,7 +41,6 @@ export const ButtonContainer = styled.div`
     input {
         border: none;
         padding: 1em;
-        margin: 1em 0;
         border-radius: 1em;
         background-color: ${
             props => props.backgroundColor ? props.backgroundColor : colors.darkBlue

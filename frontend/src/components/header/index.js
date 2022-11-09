@@ -72,6 +72,7 @@ const Header = ({ loggedIn, handleLogin }) => {
                                     type="button"
                                     style={{ 
                                         padding: '0.5em',
+                                        marginTop: '1em'
                                      }} 
                                      onClick={() => window.open('/profile', '_self')}
                                 />
@@ -81,7 +82,8 @@ const Header = ({ loggedIn, handleLogin }) => {
                                     value="Settings"
                                     type='button'
                                     style={{
-                                        padding: '0.5em'
+                                        padding: '0.5em',
+                                        marginTop: '1em'
                                     }} 
                                     onClick={() => window.open('/settings', '_self')}
                                 />

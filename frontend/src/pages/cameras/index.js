@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import {
+    CameraDetails,
+    CameraInstance,
+    CameraPageContainer
+} from './cameras.styles';
+import { 
+    ButtonContainer, 
+    FlexRow 
+} from '../../app.styles';
+
 const UserCameraPage = () => {
     const [cameraData, setCameraData] = useState([]);
     const [id, setId] = useState();
@@ -14,35 +24,70 @@ const UserCameraPage = () => {
     }, []);
 
     return (
-        <>
-            <b>Camera IDS</b>
+        <CameraPageContainer>
+            <b>Your Registered Cameras</b>
             <div>
                 {
                     cameraData.map((item, index) => {
                         const newID = item['_id'];
                         return (
-                            <div key={index}>
-                                <span style={{ paddingRight: '1em' }}>
-                                    {newID}
-                                </span>
-                                <input 
-                                    type='button'
-                                    value='GO'
-                                    onMouseOver={(e) => {
-                                        setId(newID);
-                                    }}
-                                    onClick={() => {
-                                        setTimeout(() => {
-                                            window.open(`/profile/cameras/${id}/frames`, '_self');
-                                        }, [500]);
-                                    }}
-                                />
-                            </div>
+                            <CameraInstance key={index}>
+                                <FlexRow>
+                                    <div>
+                                        <span style={{ paddingRight: '1em' }}>
+                                            <b>Camera ID:</b> {newID}
+                                        </span>
+                                        <div
+                                            style={{ 
+                                                display: 'flex', flexDirection: 'row', 
+                                                padding: '0.0625em 0.125em', borderRadius: '1em',
+                                                backgroundColor: 'white' 
+                                            }}
+                                        >
+                                            <ButtonContainer 
+                                                backgroundColor="green"
+                                            >
+                                                <input 
+                                                    type='button'
+                                                    value='GO'
+                                                    onMouseOver={() => {
+                                                        setId(newID);
+                                                    }}
+                                                    onClick={() => {
+                                                        setTimeout(() => {
+                                                            window.open(`/profile/cameras/${id}/frames`, '_self');
+                                                        }, [500]);
+                                                    }}
+                                                />
+                                            </ButtonContainer>
+                                            <ButtonContainer
+                                                backgroundColor="brown"
+                                            >
+                                                <input
+                                                    type='button'
+                                                    value='DISCONNECT' 
+                                                />
+                                            </ButtonContainer>
+                                            <ButtonContainer
+                                                backgroundColor="red"
+                                            >
+                                                <input
+                                                    type='button'
+                                                    value='DELETE' 
+                                                />
+                                            </ButtonContainer>
+                                        </div>
+                                    </div>
+                                    <CameraDetails>
+                                        <span style={{ color: 'green' }}>ACTIVE</span>
+                                    </CameraDetails>
+                                </FlexRow>
+                            </CameraInstance>
                         );
                     })
                 }
             </div>
-        </>
+        </CameraPageContainer>
     );
 }
 
