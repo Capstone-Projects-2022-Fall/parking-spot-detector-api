@@ -71,7 +71,7 @@ export default function SettingsPage() {
                                 <input 
                                     type='button'
                                     value='Delete Account'
-                                    onClick={() => window.alert("ACCOUNT GONE AAHHHHH")}
+                                    onClick={() => window.open("/settings/delete", '_self')}
                                 />
                             </ButtonContainer>
                         </div>

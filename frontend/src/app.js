@@ -15,7 +15,10 @@ import Error404Page from './pages/error404/index';
 import RegisterForm from './pages/register/form.register.js';
 import CameraRegister from './pages/register/camera.register';
 import AboutPage from './pages/about';
+
 import SettingsPage from './pages/settings';
+import AccountDeletionPage from './pages/settings/deletion.settings';
+
 import UserCameraPage from './pages/cameras';
 import CameraFrameHistoryPage from './pages/frames';
 
@@ -68,6 +71,9 @@ export default function App() {
           } />
           <Route exact path="/settings" element={
             <SettingsPage />
+          } />
+          <Route exact path="/settings/delete" element={
+            <AccountDeletionPage />
           } />
           {
             /* error pages, redirect to 404 if invalid link*/
