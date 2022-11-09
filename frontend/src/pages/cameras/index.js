@@ -34,14 +34,17 @@ const UserCameraPage = () => {
                             <CameraInstance key={index}>
                                 <FlexRow>
                                     <div>
-                                        <span style={{ paddingRight: '1em' }}>
+                                        <span style={{ 
+                                            paddingRight: '1em',
+                                            marginBottom: '1.25em'
+                                        }}>
                                             <b>Camera ID:</b> {newID}
                                         </span>
                                         <div
                                             style={{ 
                                                 display: 'flex', flexDirection: 'row', 
                                                 padding: '0.0625em 0.125em', borderRadius: '1em',
-                                                backgroundColor: 'white' 
+                                                backgroundColor: 'white', justifyContent: "space-evenly"
                                             }}
                                         >
                                             <ButtonContainer 

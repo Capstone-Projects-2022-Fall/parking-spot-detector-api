@@ -5,6 +5,8 @@ const Footer = () => {
     return (
         <FooterMain>
             Parking Spot Detector
+            <br/>
+            <small>Official company website</small>
         </FooterMain>
     );
 };

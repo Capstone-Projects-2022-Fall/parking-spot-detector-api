@@ -15,12 +15,13 @@ const ProfilePage = () => {
         handicap: false,
         last_name: '',
         phone_number: '',
-        user_name: 'test_user'
+        user_name: ''
     });
 
     useEffect(() => {
         const fetchUser = async () => {
-            const data = await axios.get('http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/user');
+            const data = await axios.get('http://127.0.0.1:8080/user');
+            //const data = await axios.get('http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/user');
             const user = data.data[0];
             user['user_name'] = 'test_user'
             setUserProfile(user);
