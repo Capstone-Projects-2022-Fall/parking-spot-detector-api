@@ -3,14 +3,18 @@ import {
     TextFieldContainer
 } from './textfield.styles';
 
-const TextField = ({placeholder, special, value, onChange}) => {
+const TextField = ({
+    placeholder, type, name, onChange, formProps
+}) => {
     return (
         <TextFieldContainer>
             <input 
-                type={special ? special : 'text'}
-                id={value}
+                type={type ? type : 'text'}
+                name={name}
                 placeholder={placeholder}
                 onChange={onChange}
+                autoComplete='off'
+                {...formProps}
             />
         </TextFieldContainer>
     );

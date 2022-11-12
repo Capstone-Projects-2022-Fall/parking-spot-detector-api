@@ -5,18 +5,24 @@ import { RegisterFormTitle, RegisterFormTidbit } from './register.styles';
 
 import TextField from '../../components/textfield';
 
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+
 const RegisterForm = () => {
-    const [willRegisterCamera, setWillRegisterCamera] = useState(false);
-    const [submitAttempt, setSubmitAttempt] = useState(false);
-    const [newUserData, setNewUserData] = useState({
+    const newUserSchema = Yup.object().shape({
         firstName: '',
         lastName: '',
         userName: '',
         phoneNumber: '',
         email: '',
         password: '',
-        confirmPassword: ''
-    })
+        confirmPassword: '',
+        admin: ''
+    });
+
+    const [willRegisterCamera, setWillRegisterCamera] = useState(false);
+    const [submitAttempt, setSubmitAttempt] = useState(false);
 
     const validEntries = () => {
         const { 
