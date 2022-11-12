@@ -67,8 +67,14 @@ export const SettingsContentSubtitle = styled.div`
 export const SettingItem = styled.div`
     border-radius: 1em;
     background-color: rgba(127, 146, 244, 25%);
-    padding: 0.5em;
-    margin: 0.25em;
-
+    padding: 1em;
+    margin: 1em 0.5em;
     user-select: none;
+`;
+
+export const FinalStepDelete = styled.div`
+    border-radius: 0.5em;
+    background-color: pink;
+
+    padding: 1em;
 `;

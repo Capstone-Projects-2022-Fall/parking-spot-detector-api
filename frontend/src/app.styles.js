@@ -55,4 +55,22 @@ export const ButtonContainer = styled.div`
             cursor: pointer;
         }
     }
+
+    button {
+        border: none;
+        padding: 1em;
+        border-radius: 1em;
+        background-color: ${
+            props => props.backgroundColor ? props.backgroundColor : colors.darkBlue
+        };
+        color: ${colors.customWhite};
+        border: 2px solid ${
+            props => props.backgroundColor ? props.backgroundColor : colors.darkBlue
+        };
+
+        &:hover {
+            box-shadow: 0 0 5px ${colors.customBlack};
+            cursor: pointer;
+        }
+    }
 `;
