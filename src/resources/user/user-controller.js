@@ -21,7 +21,6 @@ class UserController {
         const users = await User.find();
         res.send(users);
       } catch(err) {
-        console.log(err);
         next(err);
       }
     });
