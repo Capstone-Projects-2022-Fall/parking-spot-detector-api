@@ -1,6 +1,6 @@
 const User = require('./user');
-const Camera = require('./Camera');
-const Frame = require('./Frame');
+const Camera = require('./camera');
+const Frame = require('./frame');
 
 module.exports = {
   User,
