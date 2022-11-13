@@ -6,25 +6,16 @@ import SignIn from '../../components/signin';
 import Catalog from '../../components/catalog';
 import sampleImg from '../../assets/sample.jpg';
 
-const MainPage = ({setToken}) => {
+const MainPage = () => {
     return (
         <>
             <Title>Welcome to Parking Spot Detector!</Title>
             <FlexRow spaced>
                 <Slideshow>
-                    <img
-                        src={sampleImg}
-                        alt="Cars" 
-                    />
+                    <img src={sampleImg} alt="Cars" />
                 </Slideshow>
                 {
-                    setToken ? (
-                        <Catalog />
-                    ) : (
-                        <SignIn
-                            setToken={setToken} 
-                        />
-                    )
+                    <SignIn /> //setToken ? <Catalog /> : <SignIn setToken={setToken} />
                 }
             </FlexRow>
         </>

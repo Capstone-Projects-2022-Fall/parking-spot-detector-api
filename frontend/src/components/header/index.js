@@ -30,7 +30,7 @@ const Header = () => {
                     <HeaderInputStyle>
                         <input 
                             type="button"
-                            onClick={() => window.open('/register', '_self')}
+                            onClick={() => window.open('/signup', '_self')}
                             value="Register"
                         />
                         {

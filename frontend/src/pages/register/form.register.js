@@ -223,7 +223,7 @@ const RegisterForm = () => {
                         <span style={{ display: 'none' }}>
                         {
                             setTimeout(() => {
-                                window.open('/register/camera', '_self');
+                                window.open('/signup/camera', '_self');
                             }, 3000)
                         }
                         </span>

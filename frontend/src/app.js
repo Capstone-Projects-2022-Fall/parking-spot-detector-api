@@ -37,15 +37,15 @@ export default function App() {
       <Container>
         <Routes>
           <Route exact path="/" element={
-            !!!token ? <MainPage setToken={setToken} /> : <MainPage />
+            <MainPage /> //!!!token ? <MainPage setToken={setToken} /> : <MainPage />
           } />
-          <Route exact path="/register" element={
-            !!!token ? <RegisterPage setToken={setToken} /> : <RegisterPage />
+          <Route exact path="/signup" element={
+            <RegisterPage /> //!!!token ? <RegisterPage setToken={setToken} /> : <RegisterPage />
           } />
-          <Route exact path="/register/form" element={
+          <Route exact path="/signup/form" element={
             <RegisterForm />
           } />
-          <Route exact path="/register/camera" element={
+          <Route exact path="/signup/camera" element={
             <CameraRegister />
           } />
           <Route exact path="/about" element={

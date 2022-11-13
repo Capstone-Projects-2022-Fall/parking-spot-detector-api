@@ -13,7 +13,7 @@ import {
 import SignIn from '../../components/signin';
 import qrCode from '../../assets/qrcode.svg';
 
-const RegisterPage = ({setToken}) => {
+const RegisterPage = () => {
     return (
         <RegisterMain>
             <RegisterText>
@@ -33,13 +33,13 @@ const RegisterPage = ({setToken}) => {
                         <input
                             value='Continue registering on desktop'
                             type='button' 
-                            onClick={() => window.open('/register/form', '_self')}
+                            onClick={() => window.open('/signup/form', '_self')}
                         />
                     </ButtonContainer>
                 </FlexColumn>
                 <FlexColumn spaced>
                     <RegisterHeading>Already a user?</RegisterHeading>
-                    <SignIn setToken={setToken}/>
+                    <SignIn />
                 </FlexColumn>
             </FlexRow>
         </RegisterMain>
