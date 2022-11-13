@@ -11,44 +11,44 @@ const passport = require('passport');
 const passport_local_mongoose = require('passport-local-mongoose');
 const connect_ensure_login = require('connect-ensure-login');
 const { User } = require('./model');
-// const MongoDBStore = require('connect-mongodb-session')(session);
+const MongoDBStore = require('connect-mongodb-session')(session);
 const favicon = require('serve-favicon');
 const path = require('path');
 const { argv } = process;
 const port = process.env.PORT || 8080;
 const DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017/parkingspotdetector';
 
-// var store = new MongoDBStore({
-//   uri: DATABASE_URL,
-//   collection: 'sessions'
-// });
+var store = new MongoDBStore({
+  uri: DATABASE_URL,
+  collection: 'sessions'
+});
 
-// store.on('error', function(error) {
-//   console.log(error);
-// });
+store.on('error', function(error) {
+  console.log(error);
+});
 
 const RUN_LOCAL_FLAG = "--run-local";
 var runLocal = argv.includes(RUN_LOCAL_FLAG);
 
-// app.use(session({
-//   secret: 'This is a secret',
-//   cookie: {
-//     maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
-//   },
-//   store: store,
-//   // Boilerplate options, see:
-//   // * https://www.npmjs.com/package/express-session#resave
-//   // * https://www.npmjs.com/package/express-session#saveuninitialized
-//   resave: true,
-//   saveUninitialized: true
-// }));
+app.use(session({
+  secret: 'This is a secret',
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+  },
+  store: store,
+  // Boilerplate options, see:
+  // * https://www.npmjs.com/package/express-session#resave
+  // * https://www.npmjs.com/package/express-session#saveuninitialized
+  resave: true,
+  saveUninitialized: true
+}));
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
-// passport.use(User.createStrategy());
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use(file_upload({}));
 app.use(express.json());
@@ -63,7 +63,7 @@ app.use(favicon(path.join(__dirname, "favicon", "psdlogo.png")));
 
 app.use(express.static(path.join(__dirname, "frontend", "build")));
 
-app.get('/', (req, res) => {
+app.get('/', connect_ensure_login.ensureLoggedIn(), (req, res) => {
   res.send('Hello World!');
 });
 
