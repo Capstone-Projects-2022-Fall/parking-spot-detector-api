@@ -42,3 +42,11 @@ export const ProfileSubcontainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
 `;
+
+export const SymbolContainer = styled.div`
+    img {
+        padding: 0.25em;
+        height: 30px;
+        width: auto;
+    }
+`;

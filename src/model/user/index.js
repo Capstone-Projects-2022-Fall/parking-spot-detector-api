@@ -34,7 +34,8 @@ const UserSchema = new Schema({
   register_camera: {
     type: Boolean,
     required: true
-  }
+  },
+  created_on: String
 }, {
   strict: true
 });

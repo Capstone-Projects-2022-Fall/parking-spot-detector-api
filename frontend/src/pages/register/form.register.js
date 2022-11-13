@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
+import md5 from 'md5';
 import axios from 'axios';
 
 const RegisterForm = () => {
@@ -53,10 +54,10 @@ const RegisterForm = () => {
 
     const postData = async (data) => {
         if (data.password === data.confirm_password) {
-            data['password_hash'] = data.password;
+            data['password_hash'] = md5(data.password);
             delete data['password'];
             delete data['confirm_password'];
-            console.log('PROMISE?:', data);
+            data['created_on'] = new Date().toDateString().substring(4);
             await axios.post('http://127.0.0.1:8080/user', data, {
                 headers: { "Content-Type": "application/json" }
             })
