@@ -3,7 +3,7 @@ import * as colors from '../../constants/colors';
 
 export const HeaderMain = styled.div`
     width: 100%;
-    height: ${props => props.loggedIn ? '15vh' : '10vh'};
+    height: ${props => props.setToken ? '15vh' : '10vh'};
     background-color: ${colors.fadedBlue};
 
     padding: 0.5em 1em;

@@ -209,11 +209,24 @@ const RegisterForm = () => {
                                 }}
                                 onClick={() => {
                                     setTimeout(() => {
-                                        window.open(`/profile/${newUserId}`, '_blank');
-                                    }, [500]);
+                                        window.open(`/profile/${newUserId}`, '_self');
+                                    }, 500);
                                 }}
                             />
                         </ButtonContainer>
+                    </span>
+                }
+                {
+                    completed && willRegisterCamera &&
+                    <span>
+                        Redirecting to the camera registration form...
+                        <span style={{ display: 'none' }}>
+                        {
+                            setTimeout(() => {
+                                window.open('/register/camera', '_self');
+                            }, 3000)
+                        }
+                        </span>
                     </span>
                 }
             </form>

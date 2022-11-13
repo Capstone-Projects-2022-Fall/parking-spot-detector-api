@@ -6,7 +6,7 @@ import SignIn from '../../components/signin';
 import Catalog from '../../components/catalog';
 import sampleImg from '../../assets/sample.jpg';
 
-const MainPage = ({ loggedIn, handleLogin }) => {
+const MainPage = ({setToken}) => {
     return (
         <>
             <Title>Welcome to Parking Spot Detector!</Title>
@@ -18,12 +18,11 @@ const MainPage = ({ loggedIn, handleLogin }) => {
                     />
                 </Slideshow>
                 {
-                    loggedIn ? (
+                    setToken ? (
                         <Catalog />
                     ) : (
                         <SignIn
-                            loggedIn={loggedIn}
-                            handleLogin={handleLogin} 
+                            setToken={setToken} 
                         />
                     )
                 }

@@ -67,6 +67,12 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+app.use('/signin', (req, res) => {
+  res.send({
+    token: 'test1234'
+  })
+});
+
 for (var r in resources) {
   new resources[r](app);
 }

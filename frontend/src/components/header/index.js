@@ -4,16 +4,16 @@ import {
     HeaderTitle,
     HeaderMenu,
     HeaderInputStyle,
-    LogInHeader
+    //LogInHeader
 } from './header.styles';
-import { ButtonContainer, FlexRow } from '../../app.styles';
+import { /*ButtonContainer,*/ FlexRow } from '../../app.styles';
 
 import mainLogo from '../../assets/mainlogo.png';
 
-const Header = ({ loggedIn, handleLogin }) => {
+const Header = () => {
 
     return (
-        <HeaderMain loggedIn={loggedIn}>
+        <HeaderMain>
             <FlexRow spaced>
                 <>
                     <img
@@ -28,8 +28,13 @@ const Header = ({ loggedIn, handleLogin }) => {
                 </>
                 <HeaderMenu>
                     <HeaderInputStyle>
+                        <input 
+                            type="button"
+                            onClick={() => window.open('/register', '_self')}
+                            value="Register"
+                        />
                         {
-                            loggedIn ? (
+                            /*loggedIn ? (
                                 <input 
                                     type='button'
                                     value="Sign Out"
@@ -46,7 +51,7 @@ const Header = ({ loggedIn, handleLogin }) => {
                                     onClick={() => window.open('/register', '_self')}
                                     value="Register"
                                 />
-                            )
+                            )*/
                         }
                     </HeaderInputStyle>
                     <HeaderInputStyle>
@@ -59,7 +64,7 @@ const Header = ({ loggedIn, handleLogin }) => {
                 </HeaderMenu>
             </FlexRow>
             {
-                loggedIn &&
+                /*loggedIn &&
                 <LogInHeader>
                     <FlexRow spaced>
                         <span>Logged in as: {'test user'}</span>
@@ -90,7 +95,7 @@ const Header = ({ loggedIn, handleLogin }) => {
                             </ButtonContainer>
                         </FlexRow>
                     </FlexRow>
-                </LogInHeader>    
+                </LogInHeader>  */  
             }
         </HeaderMain>
     );

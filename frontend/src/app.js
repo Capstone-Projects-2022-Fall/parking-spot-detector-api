@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   BrowserRouter,
   Route,
@@ -25,29 +25,26 @@ import CameraFrameHistoryPage from './pages/frames';
 import { Container } from './app.styles.js';
 import ProfilePage from './pages/profile';
 
+import useToken from './token.js';
+
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  //const [token, setToken] = useState();
+  const { token, setToken } = useToken();
 
   return (
     <BrowserRouter>
-      <Header loggedIn={loggedIn} handleLogin={setLoggedIn} />
+      <Header />
       <Container>
         <Routes>
           <Route exact path="/" element={
-            <MainPage loggedIn={loggedIn} handleLogin={setLoggedIn} />
+            !!!token ? <MainPage setToken={setToken} /> : <MainPage />
           } />
           <Route exact path="/register" element={
-            <RegisterPage loggedIn={loggedIn} handleLogin={setLoggedIn} />
+            !!!token ? <RegisterPage setToken={setToken} /> : <RegisterPage />
           } />
           <Route exact path="/register/form" element={
             <RegisterForm />
           } />
-          {
-            /* 
-              NOTE: /register/camera to be redirected to from app IF
-              user decides to register camera via mobile app.
-            */
-          }
           <Route exact path="/register/camera" element={
             <CameraRegister />
           } />
