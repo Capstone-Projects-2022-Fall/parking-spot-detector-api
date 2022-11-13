@@ -1,4 +1,4 @@
-const { User, Admin } = require('../../model/');
+const { User } = require('../../model/');
 const connect_to_db = require('../../database');
 
 const USERS = "user";
