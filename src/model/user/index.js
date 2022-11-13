@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   phone_number: String,
   password_hash: String,
   handicap: Boolean,
-  address: String,
+  /*address: String,*/
   username: String,
   register_camera: Boolean,
   created_on: String

@@ -25,7 +25,7 @@ const RegisterForm = () => {
             .required("First name required"),
         last_name: Yup.string()
             .required("Last name required"),
-        user_name: Yup.string()
+        username: Yup.string()
             .required('User name required')
             .matches(/^[a-zA-Z0-9_]+[^ ]$/, "User name should only have numbers, letters, & underspaces")
             .min(3, "Username must be at least 3 characters long")
@@ -58,12 +58,12 @@ const RegisterForm = () => {
             delete data['password'];
             delete data['confirm_password'];
             data['created_on'] = new Date().toDateString().substring(4);
-            await axios.post('http://127.0.0.1:8080/user', data, {
+            await axios.post('http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/user', data, {
                 headers: { "Content-Type": "application/json" }
             })
                 .then((res) => {
                     const v = res.data;
-                    setNewUserId(v['user_name']);
+                    setNewUserId(v['username']);
                 })
                 .catch((err) => console.error(err));
         }
@@ -119,11 +119,11 @@ const RegisterForm = () => {
                 <input 
                     type='text'
                     placeholder="Enter user name"
-                    name="user_name"
-                    {...register('user_name')}
+                    name="username"
+                    {...register('username')}
                 />
                 <div className='invalid-feedback'>
-                    { errors.user_name?.message }
+                    { errors.username?.message }
                 </div>
                 <input
                     type='text'

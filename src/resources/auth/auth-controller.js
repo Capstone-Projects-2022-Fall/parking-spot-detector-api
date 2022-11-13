@@ -24,7 +24,9 @@ class AuthController {
 
     app.post('/register/', async (req, res) => {
       const db = await connect_to_db();
-      const new_user = await new User({email: req.body.email, username: req.body.username});
+      const new_user = await new User({
+        email: req.body.email, username: req.body.username
+      });
       User.register(new_user, req.body.password, function (err, user) {
         if (err) {
             res.json({ success: false, message: "Your account could not be saved. Error: " + err });

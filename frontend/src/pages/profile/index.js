@@ -33,11 +33,10 @@ const ProfilePage = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const data = await axios.get('http://127.0.0.1:8080/user');
-            //const data = await axios.get('http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/user');
+            const data = await axios.get('http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/user');
             var userData = data.data;
             console.log('BEFORE:', userData);
-            userData = userData.filter((u) => u['user_name'] === id);
+            userData = userData.filter((u) => u['username'] === id);
             console.log("AAA:", userData[0]);
             setUserProfile(userData[0]);
         };
