@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const passport_local_mongoose = require('passport-local-mongoose');
+//const passport_local_mongoose = require('passport-local-mongoose');
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
@@ -15,7 +15,6 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     index: true,
-    unique: true
   },
   password_hash: String,
   phone_number: {
@@ -40,7 +39,7 @@ const UserSchema = new Schema({
   strict: true
 });
 
-UserSchema.plugin(passport_local_mongoose);
+//UserSchema.plugin(passport_local_mongoose);
 
 const User = new mongoose.model('User', UserSchema);
 

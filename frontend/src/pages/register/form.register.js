@@ -16,6 +16,8 @@ import axios from 'axios';
 
 const RegisterForm = () => {
     const [willRegisterCamera, setWillRegisterCamera] = useState(false);
+    const [completed, setCompleted] = useState(false);
+    const [newUserId, setNewUserId] = useState('');
 
     const newUserSchema = Yup.object().shape({
         first_name: Yup.string()
@@ -50,22 +52,27 @@ const RegisterForm = () => {
     const { errors, isSubmitting } = formState;
 
     const postData = async (data) => {
-        console.log('PROMISE:', data);
-        const temp = data;
         if (data.password === data.confirm_password) {
-            temp['password_hash'] = data.password;
-            delete temp['password'];
-            delete temp['confirm_password'];
-            axios.post('http://127.0.0.1:8080/user', temp)
-                .then((res) => console.log(res))
+            data['password_hash'] = data.password;
+            delete data['password'];
+            delete data['confirm_password'];
+            console.log('PROMISE?:', data);
+            await axios.post('http://127.0.0.1:8080/user', data, {
+                headers: { "Content-Type": "application/json" }
+            })
+                .then((res) => {
+                    const v = res.data;
+                    setNewUserId(v['user_name']);
+                })
                 .catch((err) => console.error(err));
         }
         return false;
     }
 
     const onSubmit = (data) => {
-        if (postData(data)) {
-            window.open(willRegisterCamera ? '/register/camera' : '/profile', '_blank')
+        const temp = data;
+        if (postData(temp)) {
+            setCompleted(true);
         }
     }
 
@@ -188,6 +195,26 @@ const RegisterForm = () => {
                         Complete Registration
                     </button>
                 </ButtonContainer>
+                {
+                    completed && !willRegisterCamera && 
+                    <span>
+                        Your profile is ready!
+                        <ButtonContainer>
+                            <input 
+                                type='button'
+                                value='Go to Profile'
+                                onMouseOver={() => {
+                                    setNewUserId(newUserId);
+                                }}
+                                onClick={() => {
+                                    setTimeout(() => {
+                                        window.open(`/profile/${newUserId}`, '_blank');
+                                    }, [500]);
+                                }}
+                            />
+                        </ButtonContainer>
+                    </span>
+                }
             </form>
         </>
     );

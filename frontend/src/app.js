@@ -60,7 +60,7 @@ export default function App() {
             /* anything involving user information will preface 
               with ** '/profile' ** */
           }
-          <Route exact path="/profile" element={
+          <Route exact path="/profile/:id" element={
             <ProfilePage />
           } />
           <Route exact path="/profile/cameras" element={
