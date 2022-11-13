@@ -5,7 +5,6 @@ import {
     TogglePiece
 } from './signin.styles';
 import { ButtonContainer, FlexRow } from '../../app.styles';
-import TextField from '../textfield';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -63,17 +62,12 @@ const SignIn = ({ loggedIn, handleLogin }) => {
         );
     };
 
-    const formProps = (e) => {
-        const val = e.target.name;
-        return { ...register(val) };
-    }
-
     return (
         <SignInContainer>
             <SignInText>Sign In</SignInText>
             <ToggleLoginInfo />
             <form onSubmit={handleSubmit(onSubmit)}>
-                <TextField
+                <input
                     placeholder={
                         useEmail ? 'Enter email address' : 'Enter phone number'
                     }
@@ -83,16 +77,16 @@ const SignIn = ({ loggedIn, handleLogin }) => {
                     name={
                         useEmail ? 'email' : 'phoneNumber'
                     }
-                    formProps={formProps}
+                    {...register(useEmail ? 'email' : 'phoneNumber')}
                 />
                 <div className='invalid-user-feedback'>
                     { useEmail ? errors.email?.message : errors.phoneNumber?.message }
                 </div>
-                <TextField
+                <input
                     placeholder="Enter password"
                     type='password'
                     name='password'
-                    formProps={formProps}
+                    {...register('password')}
                 />
                 <div className='invalid-pass-feedback'>
                     { errors.password?.message }

@@ -25,8 +25,19 @@ export const RegisterFormTitle = styled.div`
     padding-bottom: 1em;
 `;
 
-export const RegisterFormTidbit = styled.div`
-    font-size: small;
-    font-color: ${colors.darkBlue};
-    padding-bottom: 1em;
+export const RegisterFormInstructions = styled.div`
+    padding: 1em;
+    background-color: ${colors.fadedBlue};
+    margin: 0.5em;
+    border-radius: 1em;
+    left: 0;
+
+    max-width: 511px;
+
+    display: flex;
+    flex-display: column;
+
+    small {
+        padding: 0.5em;
+    }
 `;

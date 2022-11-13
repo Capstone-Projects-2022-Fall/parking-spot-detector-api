@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonContainer, Container, FlexRow } from '../../app.styles';
 import TextField from '../../components/textfield';
-import { RegisterFormTidbit, RegisterFormTitle } from './register.styles';
+import { RegisterFormTitle } from './register.styles';
 
 const CameraRegister = () => {
     return (
@@ -10,9 +10,9 @@ const CameraRegister = () => {
                 Camera Registration Form
             </RegisterFormTitle>
             <FlexRow spaced width='50%'>
-                <RegisterFormTidbit style={{ padding: '0.5em', margin: '0.5em' }}>
+                <div style={{ padding: '0.5em', margin: '0.5em' }}>
                     You checked to register a camera. If you believe this was a mistake or do not intend on registering a camera, skip.
-                </RegisterFormTidbit>
+                </div>
                 <ButtonContainer backgroundColor='red'>
                     <input
                         value='Opt out'

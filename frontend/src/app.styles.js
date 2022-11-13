@@ -74,3 +74,11 @@ export const ButtonContainer = styled.div`
         }
     }
 `;
+
+export const Separator = styled.div`
+    background-color: black;  
+    width: 3px;
+    height: fit-content;
+    padding: 2em 0;
+    margin: 0.25em 1em;
+`;

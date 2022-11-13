@@ -1,155 +1,194 @@
 import React, { useState } from 'react';
-
-import { Container, FlexRow, FlexColumn } from '../../app.styles';
-import { RegisterFormTitle, RegisterFormTidbit } from './register.styles';
-
-import TextField from '../../components/textfield';
+import { 
+    Container, 
+    FlexRow, 
+    FlexColumn, 
+    ButtonContainer,
+    Separator
+} from '../../app.styles';
+import { RegisterFormTitle, RegisterFormInstructions } from './register.styles';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
+import axios from 'axios';
+
 const RegisterForm = () => {
+    const [willRegisterCamera, setWillRegisterCamera] = useState(false);
+
     const newUserSchema = Yup.object().shape({
-        firstName: '',
-        lastName: '',
-        userName: '',
-        phoneNumber: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        admin: ''
+        first_name: Yup.string()
+            .required("First name required"),
+        last_name: Yup.string()
+            .required("Last name required"),
+        user_name: Yup.string()
+            .required('User name required')
+            .matches(/^[a-zA-Z0-9_]+[^ ]$/, "User name should only have numbers, letters, & underspaces")
+            .min(3, "Username must be at least 3 characters long")
+            .max(20, "Username should be no longer than 20 characters"),
+        phone_number: Yup.string()
+            .required("Phone number required")
+            .matches(/^[0-9]+$/, "Phone number needs to contain only numbers")
+            .min(10, "Minimum of 10 characters")
+            .max(13, "Maximum of 13 characters"),
+        email: Yup.string()
+            .required("Email address required")
+            .matches(/^\S+@\S+.\S+$/, "Email should be a proper format"),
+        password: Yup.string()
+            .required('Password required')
+            .min(8, 'Password needs to be at least 8 characters long'),
+        confirm_password: Yup.string()
+            .required("Password needs to be confirmed")
+            .oneOf([Yup.ref('password')], 'Passwords must match to proceed'),
+        handicap: Yup.boolean(),
+        register_camera: Yup.boolean()
     });
 
-    const [willRegisterCamera, setWillRegisterCamera] = useState(false);
-    const [submitAttempt, setSubmitAttempt] = useState(false);
+    const formOptions = { resolver: yupResolver(newUserSchema) };
+    const { register, handleSubmit, formState } = useForm(formOptions);
+    const { errors, isSubmitting } = formState;
 
-    const validEntries = () => {
-        const { 
-            firstName, lastName, userName, 
-            phoneNumber, email, password, confirmPassword 
-        } = newUserData;
-        /* passwords do not match or are not the correct length */
-        if (password !== confirmPassword || (password.length < 8 && confirmPassword.length < 8)) {
-            setSubmitAttempt(true);
-            return false;
+    const postData = async (data) => {
+        console.log('PROMISE:', data);
+        const temp = data;
+        if (data.password === data.confirm_password) {
+            temp['password_hash'] = data.password;
+            delete temp['password'];
+            delete temp['confirm_password'];
+            axios.post('http://127.0.0.1:8080/user', temp)
+                .then((res) => console.log(res))
+                .catch((err) => console.error(err));
         }
-        /* user name or phone number lengths are incomptiable */
-        if (userName.length < 6 || phoneNumber.length < 10) {
-            setSubmitAttempt(true);
-            return false;
-        }
-        /* & if any other fields are not filled in */
-        if (firstName.length < 1 || lastName.length < 1 || !email.includes('@')) {
-            setSubmitAttempt(true);
-            return false;
-        }
-        return true;
-    };
+        return false;
+    }
 
-    const handleChange = (e) => {
-        var { id, value } = e.target;
-        setNewUserData({
-            ...newUserData,
-            [id]: value
-        });
-        console.log(newUserData);
-    };
+    const onSubmit = (data) => {
+        if (postData(data)) {
+            window.open(willRegisterCamera ? '/register/camera' : '/profile', '_blank')
+        }
+    }
 
     return (
         <>
-            <RegisterFormTitle>
-                Registration for New Account
-            </RegisterFormTitle>
-            <TextField 
-                placeholder='Enter your first name'
-                value='firstName'
-                onChange={handleChange}
-            />
-            <TextField 
-                placeholder='Enter your last name'
-                value='lastName'
-                onChange={handleChange}
-            />
-            <TextField
-                placeholder="Enter user name"
-                value="userName"
-                onChange={handleChange}
-            />
-            <RegisterFormTidbit>
-                User name must be at least 6 characters long.
-            </RegisterFormTidbit>
-            <TextField
-                placeholder="Enter your phone number"
-                value="phoneNumber"
-                onChange={handleChange}
-            />
-            <RegisterFormTidbit>
-                Phone number should be written as 1234567890
-            </RegisterFormTidbit>
-            <TextField 
-                placeholder='Enter your email address'
-                value='email'
-                onChange={handleChange}
-            />
-            <TextField
-                placeholder="Enter your password"
-                special='password'
-                value='password'
-                onChange={handleChange}
-            />
-            <TextField
-                placeholder="Confirm password"
-                special='password'
-                value='confirmPassword'
-                onChange={handleChange}
-            />
-            <RegisterFormTidbit>
-                Passwords must match, and should be at least 8 characters long.
-            </RegisterFormTidbit>
-            <Container style={{ width: 'fit-content' }}>
-                <FlexRow spaced>
-                    <b>Are you registering a camera?</b>
-                    <input
-                        type='checkbox'
-                        onClick={() => {
-                            setWillRegisterCamera(state => !state)
-                        }}
-                    />
-                </FlexRow>
-                {
-                    willRegisterCamera &&
-                    <>
+            <FlexColumn>
+                <RegisterFormTitle>
+                    Registration for New Account
+                </RegisterFormTitle>
+                <RegisterFormInstructions>
+                    <small>
+                        Usernames must only contain letters, numbers, and underspaces <br/> 3-20 characters in length.
+                    </small>
+                    <Separator />
+                    <small>
+                        Phone number should be in format 1234567890
+                    </small>
+                    <Separator />
+                    <small>
+                        Email address must have '@' and a proper domain name
+                    </small>
+                </RegisterFormInstructions>
+            </FlexColumn>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input
+                    type='text'
+                    placeholder='Enter your first name'
+                    name='first_name'
+                    {...register('first_name')}
+                />
+                <div className='invalid-feedback'>
+                    { errors.first_name?.message }
+                </div>
+                <input  
+                    type='text'
+                    placeholder='Enter your last name'
+                    name='last_name'
+                    {...register('last_name')}
+                />
+                <div className='invalid-feedback'>
+                    { errors.last_name?.message }
+                </div>
+                <input 
+                    type='text'
+                    placeholder="Enter user name"
+                    name="user_name"
+                    {...register('user_name')}
+                />
+                <div className='invalid-feedback'>
+                    { errors.user_name?.message }
+                </div>
+                <input
+                    type='text'
+                    placeholder="Enter your phone number"
+                    name="phone_number"
+                    {...register('phone_number')}
+                />
+                <div className='invalid-feedback'>
+                    { errors.phone_number?.message }
+                </div>
+                <input 
+                    type='text'
+                    placeholder='Enter your email address'
+                    name='email'
+                    {...register('email')}
+                />
+                <div className='invalid-feedback'>
+                    { errors.email?.message }
+                </div>
+                <input
+                    placeholder="Enter your password"
+                    type='password'
+                    name='password'
+                    {...register('password')}
+                />
+                <div className='invalid-feedback'>
+                    { errors.password?.message }
+                </div>
+                <input
+                    placeholder="Confirm password"
+                    type='password'
+                    name='confirm_password'
+                    {...register('confirm_password')}
+                />
+                <div className='invalid-feedback'>
+                    { errors.confirm_password?.message }
+                </div>
+                <br/>
+                <Container style={{ width: 'fit-content' }}>
+                    <FlexRow spaced>
+                        <b>Are you handicapped?</b>
+                        <input 
+                            type='checkbox'
+                            name='handicap'
+                            {...register('handicap')}
+                        />
+                    </FlexRow>
+                </Container>
+                <Container style={{ width: 'fit-content' }}>
+                    <FlexRow spaced>
+                        <b>Are you registering a camera?</b>
+                        <input
+                            type='checkbox'
+                            name='register_camera'
+                            {...register('register_camera')}
+                            onClick={() => {
+                                setWillRegisterCamera(state => !state);
+                            }}
+                        />
+                    </FlexRow>
+                    {
+                        willRegisterCamera &&
                         <span style={{ padding: '0.25em' }}>
                             Please follow the directions to installing and registering your <br /> camera after completing this registration form.
                         </span>
-                    </>
-                }
-            </Container>
-            <FlexColumn>
-                <input
-                    type='submit'
-                    value='Complete Registration'
-                    onClick={() => {
-                        if (!!!validEntries()) {
-                            return;
-                        };
-                        setTimeout(() => {
-                            window.open(
-                                willRegisterCamera ? '/register/camera' : '/',
-                                '_self'
-                            )
-                        }, [3000])
-                    }}
-                    style={{ width: 'fit-content', height: '2em' }}
-                />
-                {
-                    submitAttempt &&
-                    <span style={{ color: 'purple' }}>
-                        Check that all requirements are met for input fields. <br/>
-                    </span>
-                }
-            </FlexColumn>
+                    }
+                </Container>
+                <ButtonContainer backgroundColor='green'>
+                    <button disabled={isSubmitting} type='submit'>
+                        Complete Registration
+                    </button>
+                </ButtonContainer>
+            </form>
         </>
     );
 };
