@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
 const CameraSchema = new mongoose.Schema({
   registration_id: {
-    type: String, 
-    required: true, 
-    index: true, 
+    type: String,
+    required: true,
+    index: true,
     unique: true
   },
   coordinates: {
     type: [Number]
-  }, 
+  },
   orientation: {
     type: [Number],
   }
