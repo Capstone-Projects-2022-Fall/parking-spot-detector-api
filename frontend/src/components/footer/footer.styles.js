@@ -11,4 +11,6 @@ export const FooterMain = styled.div`
     background-color: ${colors.darkBlue};
     padding: 0.5em 1em;
     color: ${colors.customWhite};
+
+    display: ${props => props.show ? 'default' : 'none'};
 `;
