@@ -30,14 +30,7 @@ class AuthController {
             res.json({ success: false, message: "Your account could not be saved. Error: " + err });
         }
         else {
-            req.login(user, err => {
-                if (err) {
-                    res.json({ success: false, message: err });
-                }
-                else {
-                    res.json({ success: true, message: "Your account has been saved" });
-                }
-            });
+            res.json({ success: true });
         }
       });
     });
