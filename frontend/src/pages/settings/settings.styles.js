@@ -24,7 +24,7 @@ export const SettingsContentContainer = styled.div`
     background-color: ${colors.customWhite};
     padding: 1em;
     margin: 0 0.5em;
-    border: 3px solid ${colors.fadedBlue};
+    border: ${props => props.show ? `3px solid ${colors.fadedBlue}` : 'none'};
 
     min-width: 240px;
     width: fit-content;

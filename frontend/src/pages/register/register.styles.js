@@ -41,3 +41,15 @@ export const RegisterFormInstructions = styled.div`
         padding: 0.5em;
     }
 `;
+
+export const CameraFormContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    padding: 1em 0;
+
+    b { padding: 0.25em 0; }
+
+    small { padding: 0.5em 0; }
+`;

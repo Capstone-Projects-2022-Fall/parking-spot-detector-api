@@ -12,19 +12,35 @@ import {
 import {
     FlexRow,
     FlexColumn,
-    ButtonContainer
+    ButtonContainer,
+    Container
 } from '../../app.styles';
 
 export default function SettingsPage() {
     const [pageContent, setPageContent] = useState('');
     const toggleSettingsContent = (e) => setPageContent(e.target.id);
 
+    // for ownership transfer
+    const [incomingTransferReqs, setIncomingTransferReqs] = useState([]);
+    const [newOwner, setNewOwner] = useState('');
+
+    // for image upload
+    const [mask, setMask] = useState({
+        preview: '', data: ''
+    });
+    const onHandleNewMask = (e) => {
+        const file = e.target.files[0];
+        const img = {
+            preview: URL.createObjectURL(file),
+            data: file
+        };
+        setMask(img);
+    }
+
     const SettingsMenu = () => {
         const settingsButtonsMap = {
             "account": "Account Settings",
             "admin": "Administrator Settings",
-            "privacy": "Privacy Settings",
-            "community": "Community Settings",
             "camera": "Camera Settings"
         };
         return (
@@ -64,8 +80,7 @@ export default function SettingsPage() {
                         <div>
                             <div style={{ margin: '1em 0', fontSize: '14px' }}>
                                 <u>Warning: Doing this is permanent.</u> <br/>
-                                <b>If you are an administrator for a camera,</b> you are responsible for transferring ownership of or terminating each and every camera entirely. <br/>
-                                Learn more at <a href="https://www.google.com" target='_blank' rel='noreferrer'>(this website)</a>.
+                                <b>If you are an administrator for a camera,</b> you are responsible for transferring ownership of or terminating each and every camera entirely.
                             </div>
                             <ButtonContainer backgroundColor='brown'>
                                 <input 
@@ -81,21 +96,73 @@ export default function SettingsPage() {
             'admin': (
                 <>
                     <SettingItem>
-                        <span>Transfer Ownership</span>
+                        <span>Request Transfer of Ownership</span>
+                        <br/>
+                        {
+                            incomingTransferReqs.length > 0 &&
+                            <Container
+                                style={{ margin: '0.25em', borderRadius: '1em' }}
+                            >
+                                <b>Incoming Requests</b>
+                                {
+                                    incomingTransferReqs.map((item, index) => {
+                                        return (
+                                            <Container key={index}
+                                                style={{ backgroundColor: 'lightgray', margin: '1em', borderRadius: '1em' }}
+                                            >
+                                                <b>@{item}</b>
+                                                <FlexRow>
+                                                    <ButtonContainer
+                                                        backgroundColor='green'
+                                                    >
+                                                        <input 
+                                                            type='button'
+                                                            value='Accept'
+                                                        />
+                                                    </ButtonContainer>
+                                                    <ButtonContainer
+                                                        backgroundColor='red'
+                                                    >
+                                                        <input 
+                                                            type='button'
+                                                            value='Deny'
+                                                        />
+                                                    </ButtonContainer>
+                                                </FlexRow>
+                                            </Container>
+                                        );
+                                    })
+                                }
+                            </Container>
+                        }
+                        {
+                            incomingTransferReqs.length > 0 &&
+                            <>
+                                <br/>
+                                <b>Enter your request</b>
+                            </>
+                        }
                         <div>
-
+                            <input 
+                                type='text'
+                                placeholder='Enter username of new owner'
+                                style={{ width: '80%' }}
+                            />
+                            <FlexRow>
+                                <small>Clear all history upon transfer</small>
+                                <input 
+                                    type='checkbox'
+                                />
+                            </FlexRow>
+                            <br/>
+                            <ButtonContainer>
+                                <input 
+                                    type='button'
+                                    value='Request Transfer'
+                                />
+                            </ButtonContainer>
                         </div>
                     </SettingItem>
-                </>
-            ),
-            'privacy': (
-                <>
-
-                </>
-            ),
-            'community': (
-                <>
-
                 </>
             ),
             'camera': (
@@ -109,7 +176,44 @@ export default function SettingsPage() {
                     <SettingItem>
                         <span>Calibration</span>
                         <div>
-
+                            <FlexColumn style={{ padding: '0.5em' }}>
+                                <b>Image Processing</b>
+                                <small>Re-calibrate image</small>
+                                <ButtonContainer>
+                                    <input 
+                                        type='button'
+                                        value='Re-calibrate'
+                                    />
+                                </ButtonContainer>
+                                <br/>
+                                <small>Reupload image to calibrate</small>
+                                <input type='file' name='file' onChange={onHandleNewMask} />
+                                {
+                                    mask.preview !== '' &&
+                                    <>
+                                        <Container style={{ width: 'fit-content' }}>
+                                            <img src={mask.preview} height='360' />
+                                        </Container>
+                                        <ButtonContainer>
+                                            <input 
+                                                type='button'
+                                                value="Save Image"
+                                                onClick={() => window.alert('SAVE')}
+                                            />
+                                        </ButtonContainer>
+                                    </>
+                                }
+                            </FlexColumn>
+                            <FlexColumn style={{ padding: '0.5em' }}>
+                                <b>GPS Re-calibration</b>
+                                <small>Re-calibrate the location of camera</small>
+                                <ButtonContainer>
+                                    <input 
+                                        type='button'
+                                        value='Re-calibrate'
+                                    />
+                                </ButtonContainer>
+                            </FlexColumn>
                         </div>
                     </SettingItem>
                     <SettingItem>
@@ -138,8 +242,6 @@ export default function SettingsPage() {
         const pageExplanations = {
             'account': 'For user profile',
             'admin': 'For administrative privileges',
-            'privacy': 'For privacy regarding application',
-            'community': 'For group privileges',
             'camera': 'For hardware camera components'
         };
 
@@ -155,7 +257,7 @@ export default function SettingsPage() {
                         pageExplanations[pageContent]
                     }
                 </SettingsContentSubtitle>
-                <SettingsContentContainer>
+                <SettingsContentContainer show={pageContent !== ''}>
                     {
                         setting[page]
                     }
@@ -166,9 +268,7 @@ export default function SettingsPage() {
 
     return (
         <SettingsContainer>
-            <SettingsTitle>
-                Settings
-            </SettingsTitle>
+            <SettingsTitle> Settings </SettingsTitle>
             <FlexRow>
                 <SettingsMenu />
                 <SettingsContent page={pageContent} />
