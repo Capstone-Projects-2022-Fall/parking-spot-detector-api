@@ -9,7 +9,9 @@ const UserSchema = new mongoose.Schema({
   password_hash: String,
   handicap: String,
   address: String,
-  push_token: String
+  push_token: String,
+  username: String,
+  created_on: String
 }, {strict: true});
 
 UserSchema.plugin(passport_local_mongoose);

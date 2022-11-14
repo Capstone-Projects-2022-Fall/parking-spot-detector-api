@@ -10,6 +10,7 @@
     "configure-dev": "./scripts/install_dev_env.sh",
     "drop-database": "./scripts/drop_database_table.sh"
   },
+  "engines": { "node" : "16.17.1" },
   "author": "Yuri Yakymiv",
   "license": "ISC",
   "dependencies": {
@@ -30,6 +31,8 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^7.1.2",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.5.0",
     "tinydb": "^0.1.0"
   },
   "devDependencies": {

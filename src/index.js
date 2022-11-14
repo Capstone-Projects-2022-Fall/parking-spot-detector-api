@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const port = 3000;
 const resources = require('./resources');
 const file_upload = require('express-fileupload');
 const cors = require('cors');
@@ -13,10 +12,14 @@ const passport_local_mongoose = require('passport-local-mongoose');
 const connect_ensure_login = require('connect-ensure-login');
 const { User } = require('./model');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const favicon = require('serve-favicon');
+const path = require('path');
 const { argv } = process;
+const port = process.env.PORT || 8080;
+const DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017/parkingspotdetector';
 
 var store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/parkingspotdetector',
+  uri: DATABASE_URL,
   collection: 'sessions'
 });
 
@@ -65,7 +68,7 @@ app.get('/', connect_ensure_login.ensureLoggedIn(), (req, res) => {
   res.send('Hello World!');
 });
 
-for(var r in resources) {
+for (var r in resources) {
   new resources[r](app);
 }
 
