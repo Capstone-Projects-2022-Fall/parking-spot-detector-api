@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ButtonContainer, Container, FlexColumn, FlexRow } from '../../app.styles';
 import { RegisterFormTitle, CameraFormContainer } from './register.styles';
 
@@ -8,9 +8,25 @@ const CameraRegister = () => {
         preview: '', data: ''
     });
 
+    // for calibration
+    const [showManualGPS, setShowManualGPS] = useState(false);
+    const [manualGPSCoords, setManualGPSCoords] = useState({
+        lat: 0.00, lng: 0.00
+    });
+
+    const handleManualGPSState = () => setShowManualGPS(state => !state);
+    const handleGPSCoordsChange = useCallback(e => {
+        const key = e.target.id;
+        setManualGPSCoords({
+            ...manualGPSCoords,
+            [key]: e.target.value
+        });
+        console.log(manualGPSCoords);
+    });
+
     const Sep = () => {
         return (
-            <div style={{ 
+            <div style={{
                 width: '80%',
                 height: '2px',
                 backgroundColor: 'black',
@@ -53,7 +69,7 @@ const CameraRegister = () => {
                 <ButtonContainer backgroundColor='red'>
                     <input
                         value='Opt out'
-                        type='button' 
+                        type='button'
                         onClick={() => window.open('/', '_self')}
                     />
                 </ButtonContainer>
@@ -71,26 +87,26 @@ const CameraRegister = () => {
                         <small>Register physical camera equipment for your administered parking space.</small>
                         <input
                             type='text'
-                            placeholder='Camera brand' 
+                            placeholder='Camera brand'
                         />
                         <input
                             type='text'
-                            placeholder="bottom text" 
+                            placeholder="bottom text"
                         />
                     </CameraFormContainer>
                     <CameraFormContainer>
-                        <div style={{ 
-                            borderRadius: '1em', backgroundColor: 'gray', 
+                        <div style={{
+                            borderRadius: '1em', backgroundColor: 'gray',
                             margin: '1em', width: 'fit-content',
                             maxWidth: '1080px', padding: '1em'
                         }}>
                             <b>Upload Parking Area Image</b>
-                            <br/>
+                            <br />
                             <small>To render the parking spots, we need to process an image of what the parking area looks like.</small>
-                            <br/>
+                            <br />
                             <input type='file' name='file' onChange={onHandleMask} />
                             {
-                                mask.preview !== '' && 
+                                mask.preview !== '' &&
                                 <Container style={{ border: '5px solid black', width: 'fit-content' }}>
                                     <img src={mask.preview} height='360' />
                                 </Container>
@@ -104,7 +120,7 @@ const CameraRegister = () => {
                                 <b>Image Processing</b>
                                 <small>For image uploads, we will calibrate the distance of the parking spots from the camera</small>
                                 <ButtonContainer>
-                                    <input 
+                                    <input
                                         type='button'
                                         value='Start Calibrating'
                                     />
@@ -114,32 +130,71 @@ const CameraRegister = () => {
                                 <b>GPS Calibration</b>
                                 <small>Active cameras require geolocation for information purposes.</small>
                                 <ButtonContainer>
-                                    <input 
+                                    <input
                                         type='button'
                                         value='Start Calibrating'
                                     />
                                 </ButtonContainer>
+                                <ButtonContainer
+                                    backgroundColor="purple"
+                                >
+                                    <input
+                                        type='button'
+                                        value='Manually calibrate'
+                                        onClick={handleManualGPSState}
+                                    />
+                                </ButtonContainer>
+                                {
+                                    showManualGPS &&
+                                    <>
+                                        <Container>
+                                            <input
+                                                id='lat'
+                                                type='text'
+                                                value={manualGPSCoords.lat}
+                                                placeholder='Enter latitude'
+                                                onChange={handleGPSCoordsChange}
+                                            />
+                                            <input
+                                                id='lng'
+                                                type='text'
+                                                value={manualGPSCoords.lng}
+                                                placeholder='Enter longitude'
+                                                onChange={handleGPSCoordsChange}
+                                            />
+                                        </Container>
+                                        <ButtonContainer>
+                                            <input
+                                                type='button'
+                                                value="SAVE"
+                                                onClick={() => {
+                                                    handleManualGPSState();
+                                                }}
+                                            />
+                                        </ButtonContainer>
+                                    </>
+                                }
                             </CameraFormContainer>
                         </>
                     }
                     <CameraFormContainer>
                         <b>Parking Area Details</b>
                         <small>Details can be filled out separately at another time on desktop or app.</small>
-                        <br/>
-                        <input 
+                        <br />
+                        <input
                             type='text'
                             placeholder='Enter street address...'
                         />
                         <input
                             type='text'
-                            placeholder='Number of spots registering...' 
+                            placeholder='Number of spots registering...'
                         />
                         <FlexRow>
                             <span>Display on Google Maps</span>
                             <input type='checkbox' />
                         </FlexRow>
                     </CameraFormContainer>
-                    <br/><br/>
+                    <br /><br />
                     <ButtonContainer>
                         <button type='submit'>
                             Finish Camera Registration

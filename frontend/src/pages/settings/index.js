@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     SettingsContainer,
     SettingsTitle,
@@ -36,6 +36,22 @@ export default function SettingsPage() {
         };
         setMask(img);
     }
+
+    // for calibration
+    const [showManualGPS, setShowManualGPS] = useState(false);
+    const [manualGPSCoords, setManualGPSCoords] = useState({
+        lat: 0.00, lng: 0.00
+    });
+
+    const handleManualGPSState = () => setShowManualGPS(state => !state);
+    const handleGPSCoordsChange = useCallback(e => {
+        const key = e.target.id;
+        setManualGPSCoords({
+            ...manualGPSCoords,
+            [key]: e.target.value
+        });
+        console.log(manualGPSCoords);
+    });
 
     const SettingsMenu = () => {
         const settingsButtonsMap = {
@@ -213,6 +229,45 @@ export default function SettingsPage() {
                                         value='Re-calibrate'
                                     />
                                 </ButtonContainer>
+                                <ButtonContainer
+                                    backgroundColor="purple"
+                                >
+                                    <input 
+                                        type='button'
+                                        value='Manually calibrate'
+                                        onClick={handleManualGPSState}
+                                    />
+                                </ButtonContainer>
+                                {
+                                    showManualGPS &&
+                                    <>
+                                        <Container>
+                                            <input 
+                                                id='lat'
+                                                type='text'
+                                                value={manualGPSCoords.lat}
+                                                placeholder='Enter latitude'
+                                                onChange={handleGPSCoordsChange}
+                                            />
+                                            <input 
+                                                id='lng'
+                                                type='text'
+                                                value={manualGPSCoords.lng}
+                                                placeholder='Enter longitude'
+                                                onChange={handleGPSCoordsChange}
+                                            />
+                                        </Container>
+                                        <ButtonContainer>
+                                            <input 
+                                                type='button'
+                                                value="SAVE"
+                                                onClick={() => {
+                                                    handleManualGPSState();
+                                                }}
+                                            />
+                                        </ButtonContainer>
+                                    </>
+                                }
                             </FlexColumn>
                         </div>
                     </SettingItem>
@@ -248,19 +303,13 @@ export default function SettingsPage() {
         return (
             <FlexColumn>
                 <SettingsContentTitle>
-                    {
-                        pageContent.substring(0, 1).toUpperCase() + pageContent.substring(1)
-                    }
+                    { pageContent.substring(0, 1).toUpperCase() + pageContent.substring(1) }
                 </SettingsContentTitle>
                 <SettingsContentSubtitle>
-                    {
-                        pageExplanations[pageContent]
-                    }
+                    { pageExplanations[pageContent] }
                 </SettingsContentSubtitle>
                 <SettingsContentContainer show={pageContent !== ''}>
-                    {
-                        setting[page]
-                    }
+                    { setting[page] }
                 </SettingsContentContainer>
             </FlexColumn>
         );
