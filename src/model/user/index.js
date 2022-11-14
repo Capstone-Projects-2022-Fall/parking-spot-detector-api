@@ -12,7 +12,9 @@ const UserSchema = new mongoose.Schema({
   username: String,
   register_camera: Boolean,
   created_on: String
-}, {strict: true});
+}, {
+  strict: true
+});
 
 UserSchema.plugin(passport_local_mongoose);
 

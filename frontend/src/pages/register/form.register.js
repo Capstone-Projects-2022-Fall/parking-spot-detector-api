@@ -12,10 +12,12 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
-import md5 from 'md5';
 import axios from 'axios';
 
 const RegisterForm = () => {
+    //const registerURL = "http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/register";
+    const registerURL = 'http://127.0.0.1:8080/register';
+
     const [willRegisterCamera, setWillRegisterCamera] = useState(false);
     const [completed, setCompleted] = useState(false);
     const [newUserId, setNewUserId] = useState('');
@@ -53,28 +55,23 @@ const RegisterForm = () => {
     const { errors, isSubmitting } = formState;
 
     const postData = async (data) => {
-        if (data.password === data.confirm_password) {
-            data['password_hash'] = md5(data.password);
-            delete data['password'];
-            delete data['confirm_password'];
-            data['created_on'] = new Date().toDateString().substring(4);
-            await axios.post('http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/user', data, {
-                headers: { "Content-Type": "application/json" }
-            })
-                .then((res) => {
-                    const v = res.data;
-                    setNewUserId(v['username']);
-                })
-                .catch((err) => console.error(err));
-        }
-        return false;
+        data['password_hash'] = data.password;
+        delete data['password'];
+        delete data['confirm_password'];
+        data['created_on'] = new Date().toDateString().substring(4);
+        await axios({
+            method: "POST",
+            data: data,
+            withCredentials: true,
+            url: registerURL
+        })
+        .then((res) => console.log(res));
     }
 
     const onSubmit = (data) => {
         const temp = data;
-        if (postData(temp)) {
-            setCompleted(true);
-        }
+        postData(temp);
+        setCompleted(true);
     }
 
     return (
@@ -203,13 +200,13 @@ const RegisterForm = () => {
                         <ButtonContainer>
                             <input 
                                 type='button'
-                                value='Go to Profile'
+                                value='Sign In'
                                 onMouseOver={() => {
                                     setNewUserId(newUserId);
                                 }}
                                 onClick={() => {
                                     setTimeout(() => {
-                                        window.open(`/profile/${newUserId}`, '_self');
+                                        window.open(`/`, '_self');
                                     }, 500);
                                 }}
                             />

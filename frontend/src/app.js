@@ -24,11 +24,8 @@ import CameraFrameHistoryPage from './pages/frames';
 import { Container } from './app.styles.js';
 import ProfilePage from './pages/profile';
 
-import useToken from './token.js';
-
 export default function App() {
-  //const [token, setToken] = useState();
-  const { token, setToken } = useToken();
+  //const [loggedIn, setLoggedIn] = useState();
 
   return (
     <BrowserRouter>

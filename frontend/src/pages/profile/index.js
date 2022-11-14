@@ -33,7 +33,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const data = await axios.get('http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/user');
+            const data = await axios.get('http://127.0.0.1:8080/user');
             var userData = data.data;
             console.log('BEFORE:', userData);
             userData = userData.filter((u) => u['username'] === id);
@@ -47,7 +47,7 @@ const ProfilePage = () => {
 
     const { 
         first_name, last_name, phone_number, email,
-        handicap, user_name, register_camera, created_on
+        handicap, username, register_camera, created_on
     } = userProfile;
     return (
         <ProfileMain>
@@ -55,7 +55,7 @@ const ProfilePage = () => {
                 <span>
                     {`${first_name} ${last_name}`}
                 </span>
-                <small>{`@${user_name}`}</small>
+                <small>{`@${username}`}</small>
             </ProfileTitle>
             <FlexRow>
                 <SymbolContainer>
