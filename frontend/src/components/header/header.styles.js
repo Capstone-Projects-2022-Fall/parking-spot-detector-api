@@ -28,17 +28,9 @@ export const HeaderTitle = styled.div`
     color: ${colors.customBlack};
     padding: 1em;
     font-weight: bold;
-`;
+    font-size: 20px;
 
-export const HeaderMenu = styled.div`
-    display: flex;
-    flex-direction: column;
-
-    padding: 0.25em;
-    border-radius: 0.25em;
-
-    margin-left: -1em;
-    padding-right: 2em;
+    user-select: none;
 `;
 
 export const HeaderInputStyle = styled.div`
@@ -53,8 +45,8 @@ export const HeaderInputStyle = styled.div`
         background-color: ${colors.customWhite};
         color: ${colors.veryDarkBlue};
         border-radius: 0.25em;
-        padding: 0.5em;
-        margin: 0.25em;
+        padding: 0.75em 1em;
+        margin: 1em;
 
         &:hover {
             cursor: pointer;

@@ -2,7 +2,6 @@ import React from 'react';
 import { 
     HeaderMain,
     HeaderTitle,
-    HeaderMenu,
     HeaderInputStyle,
     //LogInHeader
 } from './header.styles';
@@ -26,42 +25,33 @@ const Header = () => {
                         Parking Spot Detector
                     </HeaderTitle>
                 </>
-                <HeaderMenu>
-                    <HeaderInputStyle>
-                        <input 
-                            type="button"
-                            onClick={() => window.open('/signup', '_self')}
-                            value="Register"
-                        />
-                        {
-                            /*loggedIn ? (
-                                <input 
-                                    type='button'
-                                    value="Sign Out"
-                                    onClick={() => {
-                                        setTimeout(() => {
-                                            handleLogin(false);
-                                            window.reload('/');
-                                        }, [1000]);
-                                    }}
-                                />    
-                            ) : (
-                                <input 
-                                    type="button"
-                                    onClick={() => window.open('/register', '_self')}
-                                    value="Register"
-                                />
-                            )*/
-                        }
-                    </HeaderInputStyle>
-                    <HeaderInputStyle>
-                        <input
-                            type='button'
-                            value='About Us' 
-                            onClick={() => window.open('/about', '_self')}
-                        />
-                    </HeaderInputStyle>
-                </HeaderMenu>
+                <HeaderInputStyle>
+                    <input 
+                        type="button"
+                        onClick={() => window.open('/signup', '_self')}
+                        value="Register"
+                    />
+                    {
+                        /*loggedIn ? (
+                            <input 
+                                type='button'
+                                value="Sign Out"
+                                onClick={() => {
+                                    setTimeout(() => {
+                                        handleLogin(false);
+                                        window.reload('/');
+                                    }, [1000]);
+                                }}
+                            />    
+                        ) : (
+                            <input 
+                                type="button"
+                                onClick={() => window.open('/register', '_self')}
+                                value="Register"
+                            />
+                        )*/
+                    }
+                </HeaderInputStyle>
             </FlexRow>
             {
                 /*loggedIn &&

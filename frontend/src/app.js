@@ -14,7 +14,6 @@ import RegisterPage from './pages/register/index';
 import Error404Page from './pages/error404/index';
 import RegisterForm from './pages/register/form.register.js';
 import CameraRegister from './pages/register/camera.register';
-import AboutPage from './pages/about';
 
 import SettingsPage from './pages/settings';
 import AccountDeletionPage from './pages/settings/deletion.settings';
@@ -48,10 +47,6 @@ export default function App() {
           <Route exact path="/signup/camera" element={
             <CameraRegister />
           } />
-          <Route exact path="/about" element={
-            <AboutPage />
-          } />
-
           {
             /* the following pages are linked to the backend */
             /* anything involving user information will preface 
