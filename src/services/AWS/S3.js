@@ -75,12 +75,13 @@ async function upload_annotated_frame(camera_id, file) {
     await s3.putObject({
       Body: file,
       Bucket: BUCKET_NAME,
-      Key: `annotated_frames/${camera_id}`
+      Key: `annotated/${camera_id}`
     }, function(err, data) {
       if(err) {
         console.log(err);
         resolve(false);
       } else {
+        console.log(data);
         resolve(true);
       }
     });
@@ -114,6 +115,22 @@ async function get_latest_frame(camera_id) {
         resolve(err);
       } else {
         console.log(data);
+        resolve(data.Body);
+      }
+    });
+  });
+}
+
+async function get_annotated_frame(camera_id) {
+  return new Promise((resolve, reject) => {
+    s3.getObject({
+      Bucket: BUCKET_NAME,
+      Key: `annotated/${camera_id}`
+    }, function(err, data) {
+      if(err) {
+        resolve(err);
+      } else {
+        console.log(data.Body);
         resolve(data.Body);
       }
     });

@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const { Decimal128, String, Number } = mongoose.Schema.Types;
 
+const midpointDistSchema = new mongoose.Schema({
+    midpoint: [Number],
+    size: mongoose.Decimal128
+});
+
 const CameraSchema = new mongoose.Schema({
   registration_id: {
     type: String,
@@ -8,10 +13,16 @@ const CameraSchema = new mongoose.Schema({
     index: true,
     unique: true
   },
-  coordinates: [Decimal128],
-  meters_per_pixel: {
-    type: Decimal128
-  }
+  orientation: {
+    type: [Number],
+  },
+  segments: {
+    type: [[[Number]]]
+  },
+  spot_sizes: {
+    type: [midpointDistSchema]
+  },
+  coordinates: [Decimal128]
 }, {strict: true});
 
 const Camera = new mongoose.model('Camera', CameraSchema);

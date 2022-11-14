@@ -1,10 +1,13 @@
 const { Camera, Frame } = require('../../model/');
 const connect_to_db = require('../../database');
-const { upload_mask, get_latest_frame } = require('../../services').AWS.S3;
+const { upload_mask, upload_annotated_frame, get_latest_frame, get_annotated_frame } = require('../../services').AWS.S3;
 
 const CAMERAS = "cameras";
 const MASK = "mask";
 const LATEST = "latest";
+const NOTIFY = "notify";
+const ANNOTATED = "annotated";
+
 
 /*
   CameraController
@@ -56,6 +59,42 @@ class CameraController {
       }
     });
 
+    app.post(`/${CAMERAS}/:id/${ANNOTATED}`, async (req, res, next) => {
+      try {
+        const camera_id = req.params["id"]; // get camera_id from session
+
+        if(!req.files) {
+          // error no file was uploaded.
+          console.log("no files");
+        }
+
+        const database_connect = await connect_to_db();
+        const response = await upload_annotated_frame(camera_id, req.files.frame.data);
+
+        res.send(response);
+      } catch(err) {
+        next(err);
+      }
+    });
+
+    app.get(`/${CAMERAS}/:id/${ANNOTATED}`, async (req, res, next) => {
+      try {
+        const camera_id = req.params["id"]; // get camera_id from session
+
+        if(!req.files) {
+          // error no file was uploaded.
+          console.log("no files");
+        }
+
+        const database_connect = await connect_to_db();
+        const response = await upload_annotated_frame(camera_id, req.files.frame.data);
+
+        res.send(response);
+      } catch(err) {
+        next(err);
+      }
+    });
+
 
     app.get(`/${CAMERAS}/:id`, async (req, res, next) => {
       try {
@@ -70,14 +109,34 @@ class CameraController {
     app.patch(`/${CAMERAS}/:id`, async (req, res, next) => {
       try {
         const database_connection = await connect_to_db();
-        const camera = Camera.find({});
-
         const query = {_id: req.params["id"]};
-        const new_fields = req.body;
 
+        console.log(req.body["spot_sizes"]);
 
-        const response = await Camera.findOneAndUpdate(query, new_fields, {rawResult: true});
+        const new_segments = req.body.segments;
+
+        const new_spot_sizes = req.body.spot_sizes.map(x => {
+          return {
+            midpoint: x[0],
+            size: x[1]
+          };
+        });
+
+        console.log(new_spot_sizes);
+
+        const response = await Camera.updateOne(query, [
+          {$set: {spot_sizes: new_spot_sizes}},
+          {$set: {segments: new_segments}}
+        ], {rawResult: true});
         res.send(response);
+      } catch(err) {
+        next(err);
+      }
+    });
+
+    app.post(`/${CAMERAS}/:id/${NOTIFY}`, async (req, res, next) => {
+      try {
+        res.send("");
       } catch(err) {
         next(err);
       }
