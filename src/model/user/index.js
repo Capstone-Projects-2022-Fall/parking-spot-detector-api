@@ -8,7 +8,8 @@ const UserSchema = new mongoose.Schema({
   phone_number: String,
   password_hash: String,
   handicap: String,
-  address: String
+  address: String,
+  push_token: String
 }, {strict: true});
 
 UserSchema.plugin(passport_local_mongoose);

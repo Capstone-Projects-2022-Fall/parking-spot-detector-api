@@ -47,11 +47,11 @@ class FrameController {
           console.log("no files");
         }
 
-        console.log(typeof req.files.frame);
-        console.log(`Saved ${req.files.frame.name} to S3`);
-
         const database_connect = await connect_to_db();
         const new_frame = await new Frame({camera_id}).save();
+
+        console.log(req.body);
+        console.log("body");
 
         upload_frame(camera_id, new_frame._id, req.files.frame.data);
         res.send(new_frame);
@@ -69,6 +69,8 @@ class FrameController {
         next(err);
       }
     });
+
+
   }
 }
 
