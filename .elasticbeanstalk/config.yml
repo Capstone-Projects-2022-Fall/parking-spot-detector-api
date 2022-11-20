@@ -1,5 +1,9 @@
 branch-defaults:
+  add-notification-support:
+    environment: Parkingspotdetector-env
   create-endpoint-for-annotated-frames:
+    environment: Parkingspotdetector-env
+  deploy:
     environment: Parkingspotdetector-env
   main:
     environment: Parkingspotdetector-env
