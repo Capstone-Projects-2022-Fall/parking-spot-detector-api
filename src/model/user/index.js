@@ -7,12 +7,16 @@ const UserSchema = new mongoose.Schema({
   email: {type: String, required: true, index: true, unique: true},
   phone_number: String,
   password_hash: String,
+  handicap: Boolean,
   handicap: String,
   address: String,
   push_token: String,
   username: String,
+  register_camera: Boolean,
   created_on: String
-}, {strict: true});
+}, {
+  strict: true
+});
 
 UserSchema.plugin(passport_local_mongoose);
 

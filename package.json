@@ -7,18 +7,27 @@
     "test": "mocha --recursive --exit",
     "start": "node src/index.js --run-local",
     "start-deb": "node inspect src/index.js --run-local",
+    "frontend": "cd frontend && npm start",
+    "concurrent": "concurrently \"npm run start\" \"npm run frontend\"",
     "configure-dev": "./scripts/install_dev_env.sh",
     "drop-database": "./scripts/drop_database_table.sh"
   },
-  "engines": { "node" : "16.17.1" },
+  "engines": {
+    "node": "16.17.1"
+  },
   "author": "Yuri Yakymiv",
   "license": "ISC",
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "@prisma/client": "^4.4.0",
     "aws-sdk": "^2.1233.0",
+    "axios": "^1.1.3",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
+    "concurrently": "^7.5.0",
     "connect-ensure-login": "^0.1.1",
     "connect-mongodb-session": "^3.1.1",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "expo-server-sdk": "^3.7.0",
     "express": "^4.18.1",
@@ -32,8 +41,10 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^7.1.2",
     "path": "^0.12.7",
+    "react-hook-form": "^7.39.3",
     "serve-favicon": "^2.5.0",
-    "tinydb": "^0.1.0"
+    "tinydb": "^0.1.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "chai": "^4.3.6",
