@@ -1,17 +1,23 @@
-const express = require('express');
+const express = require('express'); // :-) 
 const app = express();
+
 const resources = require('./resources');
 const file_upload = require('express-fileupload');
 const cors = require('cors');
-const body_parser = require('body-parser');
+
+const body_parser = require('body-parser'); // :-) 
+
 const morgan = require('morgan');
 const { MongoServerError } = require('mongodb');
+
 const session = require('express-session');
-const passport = require('passport');
-const passport_local_mongoose = require('passport-local-mongoose');
+const passport = require('passport');  // :-) 
+const passport_local_mongoose = require('passport-local-mongoose'); // :-) 
 const connect_ensure_login = require('connect-ensure-login');
-const { User } = require('./model');
+const { User } = require('./model'); // :-) 
+
 const MongoDBStore = require('connect-mongodb-session')(session);
+
 const favicon = require('serve-favicon');
 const path = require('path');
 const { argv } = process;
@@ -20,10 +26,12 @@ const DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017/park
 
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
-const localStrategy = require('passport-local').Strategy;
+//const localStrategy = require('passport-local').Strategy; // :-) 
+const LocalStrategy = require("passport-local");
 
 const axios = require('axios');
 
+// connect to mongoDB collections
 var store = new MongoDBStore({
   uri: DATABASE_URL,
   collection: 'sessions'
@@ -36,6 +44,7 @@ store.on('error', function(error) {
 const RUN_LOCAL_FLAG = "--run-local";
 var runLocal = argv.includes(RUN_LOCAL_FLAG);
 
+app.use(body_parser.urlencoded({extended: true}));
 app.use(session({
   secret: 'This is a secret',
   cookie: {
@@ -45,19 +54,19 @@ app.use(session({
   // Boilerplate options, see:
   // * https://www.npmjs.com/package/express-session#resave
   // * https://www.npmjs.com/package/express-session#saveuninitialized
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false
 }));
 
-app.use(cookieParser('secretcode'))
+//app.use(cookieParser('secretcode'));
 app.use(passport.initialize());
 app.use(passport.session());
 
-//passport.use(User.createStrategy());
-//passport.serializeUser(User.serializeUser());
-//passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-passport.use( new localStrategy((username, password, done) => {
+/*passport.use( new localStrategy((username, password, done) => {
   User.findOne({ username: username }, (err, user) => {
     if (err) throw err;
     if (!user) return done(null, false);
@@ -78,15 +87,14 @@ passport.deserializeUser((id, cb) => {
     };
     cb(err, userInfo);
   });
-});
+});*/
 
 app.use(file_upload({}));
 app.use(express.json());
 app.use(cors({
-  origin: 'http://127.0.0.1:3002',
+  origin: 'http://127.0.0.1:3000',
   credentials: true
 }));
-app.use(body_parser.urlencoded({extended: true}));
 
 if (RUN_LOCAL_FLAG) {
   app.use(morgan('dev'));

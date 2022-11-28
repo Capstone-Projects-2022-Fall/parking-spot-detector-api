@@ -28,7 +28,7 @@ class UserController {
     app.get(`/${USERS}/:id`, async (req, res, next) => {
       try {
         const database_connection = await connect_to_db();
-        const users = User.find({_id: req.params["id"]});
+        const users = await User.find({_id: req.params["id"]});
         res.send(users);
       } catch(err) {
         next(err);
@@ -55,18 +55,6 @@ class UserController {
         next(err);
       }
     });
-
-    // add admin roles and make admin role anytime
-    app.put(`/${USERS}/:id/touser`, async (req, res, next) => {
-      try {
-        const database_connection = await connect_to_db();
-        const user = await User.find({_id: req.params['id']});
-        const created_admin = await new Admin(req.body).save();
-        res.send(created_admin);
-      } catch (err) {
-        next(err);
-      }
-    })
   }
 }
 
