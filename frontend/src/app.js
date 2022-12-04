@@ -6,23 +6,22 @@ import {
   Navigate
 } from 'react-router-dom';
 
+import { Container } from './app.styles.js';
 import Header from './components/header';
 import Footer from './components/footer';
-
 import MainPage from './pages/main/index';
 import RegisterPage from './pages/register/index';
 import Error404Page from './pages/error404/index';
 import RegisterForm from './pages/register/form.register.js';
 import CameraRegister from './pages/register/camera.register';
-
 import SettingsPage from './pages/settings';
 import AccountDeletionPage from './pages/settings/deletion.settings';
-
 import UserCameraPage from './pages/cameras';
 import CameraFrameHistoryPage from './pages/frames';
-
-import { Container } from './app.styles.js';
+import ProfileSearch from './pages/profile/search.profile';
 import ProfilePage from './pages/profile';
+import GroupSearch from './pages/group/search.group';
+import GroupProfile from './pages/group';
 
 export default function App() {
   //const [loggedIn, setLoggedIn] = useState();
@@ -49,6 +48,9 @@ export default function App() {
             /* anything involving user information will preface 
               with ** '/profile' ** */
           }
+          <Route exact path="/profile" element={
+            <ProfileSearch />
+          } />
           <Route exact path="/profile/:id" element={
             <ProfilePage />
           } />
@@ -57,6 +59,12 @@ export default function App() {
           } />
           <Route exact path="/profile/cameras/:id/frames" element={
             <CameraFrameHistoryPage />
+          } />
+          <Route exact path="/group" element={
+            <GroupSearch />
+          } />
+          <Route exact path='/group/:id/profile' element={
+            <GroupProfile />
           } />
           <Route exact path="/settings" element={
             <SettingsPage />

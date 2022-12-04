@@ -8,7 +8,6 @@ const UserSchema = new mongoose.Schema({
   phone_number: String,
   password_hash: String,
   handicap: Boolean,
-  handicap: String,
   address: String,
   push_token: String,
   username: String,

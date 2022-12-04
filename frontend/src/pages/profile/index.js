@@ -35,15 +35,11 @@ const ProfilePage = () => {
         const fetchUser = async () => {
             const data = await axios.get('http://127.0.0.1:8080/user');
             var userData = data.data;
-            console.log('BEFORE:', userData);
             userData = userData.filter((u) => u['username'] === id);
-            console.log("AAA:", userData[0]);
             setUserProfile(userData[0]);
         };
         fetchUser();
     }, [id]);
-
-    console.log(userProfile);
 
     const { 
         first_name, last_name, phone_number, email,
