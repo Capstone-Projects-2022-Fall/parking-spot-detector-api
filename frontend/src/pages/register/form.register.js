@@ -65,7 +65,8 @@ const RegisterForm = () => {
             withCredentials: true,
             url: registerURL
         })
-        .then((res) => console.log(res));
+        .then((res) => console.log(res))
+        .catch((err) => console.error(err));
     }
 
     const onSubmit = (data) => {

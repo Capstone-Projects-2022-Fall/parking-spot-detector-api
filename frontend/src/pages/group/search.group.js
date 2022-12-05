@@ -9,7 +9,10 @@ import {
     GroupSearchListDetails,
     GroupSearchToggle
 } from './groups.styles';
-import { ButtonContainer } from '../../app.styles';
+import { 
+    ButtonContainer,
+    FlexRow
+} from '../../app.styles';
 
 import privacy from '../../assets/hide.png';
 
@@ -46,6 +49,16 @@ const GroupSearch = () => {
 
     return (
         <GroupSearchContainer>
+            <FlexRow spaced style={{ padding: '1em', border: '1px solid black', borderRadius: '1em' }}>
+                <b>Create a new group: </b>
+                <ButtonContainer>
+                    <input 
+                        type='button'
+                        value="CREATE"
+                        onClick={() => window.open(`/group/create`, '_self')}
+                    />
+                </ButtonContainer>
+            </FlexRow>
             <GroupSearchTitle>
                 GROUP SEARCH
             </GroupSearchTitle>

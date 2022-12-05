@@ -22,6 +22,7 @@ import ProfileSearch from './pages/profile/search.profile';
 import ProfilePage from './pages/profile';
 import GroupSearch from './pages/group/search.group';
 import GroupProfile from './pages/group';
+import CreateGroupPage from './pages/group/create.group';
 
 export default function App() {
   //const [loggedIn, setLoggedIn] = useState();
@@ -60,6 +61,9 @@ export default function App() {
           } />
           <Route exact path='/group/:id/profile' element={
             <GroupProfile />
+          } />
+          <Route exact path='/group/create' element={
+            <CreateGroupPage />
           } />
           <Route exact path="/settings" element={
             <SettingsPage />
