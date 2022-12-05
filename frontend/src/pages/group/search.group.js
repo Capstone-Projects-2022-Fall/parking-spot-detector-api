@@ -6,28 +6,49 @@ import {
     GroupSearchText,
     GroupSearchList,
     GroupSearchListItem,
-    GroupSearchListDetails
+    GroupSearchListDetails,
+    GroupSearchToggle
 } from './groups.styles';
 import { ButtonContainer } from '../../app.styles';
+
+import privacy from '../../assets/hide.png';
 
 const GroupSearch = () => {
     const [groupData, setGroupData] = useState([]);
     const [id, setId] = useState();
+    const [includePrivate, setIncludePrivate] = useState(false);
 
     useEffect(() => {
         const fetchGroups = async () => {
             const data  = await axios.get('http://127.0.0.1:8080/group');
-            setGroupData(data.data);
+            setGroupData(
+                includePrivate ? 
+                data.data : 
+                data.data.filter((item) => { 
+                    return !item.privacy
+                })
+            );
         };
         fetchGroups();
-    }, []);
+    }, [includePrivate]);
     
     return (
         <GroupSearchContainer>
             <GroupSearchTitle>
                 GROUP SEARCH
             </GroupSearchTitle>
-            <GroupSearchList>
+            <GroupSearchToggle>
+                <span style={{ fontWeight: 'bold', paddingRight: '0.5em' }}>
+                    Include private groups: 
+                </span>
+                <input 
+                    type='checkbox'
+                    defaultChecked={includePrivate}
+                    checked={includePrivate}
+                    onClick={() => setIncludePrivate((state) => !state)}
+                />
+            </GroupSearchToggle>
+            <GroupSearchList private={includePrivate}>
                 <GroupSearchText>
                     Groups
                 </GroupSearchText>
@@ -37,6 +58,10 @@ const GroupSearch = () => {
                         const groupName = item['name'];
                         return (
                             <GroupSearchListItem key={index}>
+                                {
+                                    item['privacy'] &&
+                                    <img style={{ height: '30px' }} src={privacy} alt="" />
+                                }
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                                     <span style={{ fontWeight: 'bold' }}>Group name: {groupName}</span>
                                     <span>Group ID: {newID}</span>

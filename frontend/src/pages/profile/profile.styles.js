@@ -50,3 +50,46 @@ export const SymbolContainer = styled.div`
         width: auto;
     }
 `;
+
+// search 
+
+export const ProfileSearchMain = styled.div`
+    padding: 1em;
+`;
+
+export const ProfileSearchList = styled.div`
+    padding: 1em;
+`;
+
+export const ProfileSearchListItem = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    padding: 0.5em;
+    background-color: ${colors.fadedBlue};
+    border-radius: 1em;
+    border: 2px solid ${colors.darkBlue};
+    margin: 1em 0;
+`;
+
+export const ProfileSearchListDetails = styled.div`
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: row;
+
+    input {
+        margin: 0 1em;
+    }
+`;
+
+export const ProfileSearchTitle = styled.div`
+    font-weight: bold;
+    padding: 1em;
+`;
+
+export const ProfileSearchText = styled.div`
+    font-weight: bold;
+    font-size: 24px;
+`;

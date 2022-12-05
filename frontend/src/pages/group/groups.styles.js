@@ -195,3 +195,7 @@ export const GroupSearchListDetails = styled.div`
         margin: 0 1em;
     }
 `;
+
+export const GroupSearchToggle = styled.div`
+    padding: 1em;
+`;
