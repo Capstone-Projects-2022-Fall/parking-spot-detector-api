@@ -299,3 +299,17 @@ export const AvailableUserItem = styled.div`
         color: blue;
     }
 `;
+
+// other
+
+export const PrimaryCameraLink = styled.div`
+    font-size: 16px;
+    font-weight: bold;
+
+    &:hover {
+        color: blue;
+        font-weight: bold;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+`;

@@ -12,12 +12,15 @@ import {
     GroupUserDisplay,
     GroupAdminDisplay,
     GroupSubcontainer,
-    GroupIconContainer
+    GroupIconContainer,
+    PrimaryCameraLink
 } from './groups.styles';
+import { FlexRow } from '../../app.styles';
 
 import show from '../../assets/show.png';
 import hide from '../../assets/hide.png';
 import messenger from '../../assets/messenger.png';
+import cameraPic from '../../assets/camera.png';
 
 const GroupProfile = () => {
     const [groupProfile, setGroupProfile] = useState({
@@ -30,6 +33,8 @@ const GroupProfile = () => {
 
     const { id } = useParams();
 
+    const [testCamera, setTestCamera] = useState('');
+
     useEffect(() => {
         const fetchGroup = async () => {
             const data = await axios.get("http://127.0.0.1:8080/group");
@@ -38,6 +43,12 @@ const GroupProfile = () => {
             setGroupProfile(groupData[0]);
         };
         fetchGroup();
+
+        const fetchCam = async () => {
+            const data = await axios.get('http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/cameras');
+            setTestCamera(data.data[data.data.length-1]._id);
+        };
+        fetchCam();
     }, [id]);
 
     const {
@@ -59,10 +70,25 @@ const GroupProfile = () => {
                 </GroupTitle>
             </GroupSubcontainer>
             <GroupContainer>
-                <GroupMsgContainer>
-                    <img src={messenger} alt="" />
-                    <span>{ status_update }</span>
-                </GroupMsgContainer>
+                <FlexRow>
+                    <GroupMsgContainer>
+                        <img src={messenger} alt="" />
+                        <span>{ status_update }</span>
+                    </GroupMsgContainer>
+                    <FlexRow>
+                        <img src={cameraPic} alt="" style={{ height: '20px', padding: '1em', paddingLeft: '2em' }} />
+                        <div style={{ 
+                            paddingTop: '1em', display: 'flex', flexDirection: 'column' 
+                        }}>
+                            <b>Primary camera ID: </b>
+                            <PrimaryCameraLink
+                                onClick={() => window.open(`/profile/cameras/${testCamera}/frames`, '_blank')}
+                            >
+                                { testCamera }
+                            </PrimaryCameraLink>
+                        </div>
+                    </FlexRow>
+                </FlexRow>
                 <b style={{ padding: '1em' }}>ADMINS</b>
                 <GroupAdminContainer>
                     {

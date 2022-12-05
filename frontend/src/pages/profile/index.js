@@ -26,7 +26,6 @@ const ProfilePage = () => {
         phone_number: '',
         user_name: '',
         register_camera: false,
-        created_on: ''
     });
 
     const { id } = useParams();
@@ -43,7 +42,7 @@ const ProfilePage = () => {
 
     const { 
         first_name, last_name, phone_number, email,
-        handicap, username, register_camera, created_on
+        handicap, username, register_camera
     } = userProfile;
     return (
         <ProfileMain>
@@ -74,7 +73,18 @@ const ProfilePage = () => {
                 </ProfileSubcontainer>
                 <ProfileSubcontainer>
                     <div>
-                        <b>Creation date: </b> {created_on}
+                        <b>Registered Cameras:</b> 
+                        {
+                        <ButtonContainer
+                            backgroundColor="green"
+                        >
+                            <input 
+                                type='button'
+                                value="See Cameras"
+                                onClick={() => window.open(`/profile/cameras`, '_self')}
+                            />
+                        </ButtonContainer>
+                        }
                     </div>
                 </ProfileSubcontainer>
             </ProfileContainer>

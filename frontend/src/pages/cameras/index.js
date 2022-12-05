@@ -13,12 +13,16 @@ import {
 
 const UserCameraPage = () => {
     const [cameraData, setCameraData] = useState([]);
-    const [id, setId] = useState();
+    const [id, setId] = useState('');
+
+    const [regCamera, setRegCamera] = useState('');
 
     useEffect(() => {
         const fetchCameras = async () => {
             const data = await axios.get('http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/cameras/');
-            setCameraData(data.data);
+            const d = data.data;
+            setCameraData(d);
+            setRegCamera(d[d.length-1]['_id']);
         }; 
         fetchCameras();
     }, []);
@@ -29,15 +33,8 @@ const UserCameraPage = () => {
                 display: 'flex', flexDirection: 'row', justifyContent: 'space-between'
             }}>
                 <span>
-                    <b>Primary Camera:</b> XXXXXXXXXXXXXXXXXXXXXXXXX
+                    <b>Primary Camera:</b> {regCamera}
                 </span>
-                <ButtonContainer backgroundColor='purple'>
-                    <input 
-                        type='button' 
-                        value='CHANGE' 
-                        style={{ padding: '0.5em' }} 
-                    />
-                </ButtonContainer>
             </div>
             <br/>
             <b>Your Registered Cameras</b>
@@ -45,6 +42,7 @@ const UserCameraPage = () => {
                 {
                     cameraData.map((item, index) => {
                         const newID = item['_id'];
+                        const active = newID === regCamera;
                         return (
                             <CameraInstance key={index}>
                                 <FlexRow spaced>
@@ -63,11 +61,11 @@ const UserCameraPage = () => {
                                             }}
                                         >
                                             <ButtonContainer 
-                                                backgroundColor="green"
+                                                backgroundColor="purple"
                                             >
                                                 <input 
                                                     type='button'
-                                                    value='GO'
+                                                    value='VIEW'
                                                     onMouseOver={() => {
                                                         setId(newID);
                                                     }}
@@ -79,11 +77,15 @@ const UserCameraPage = () => {
                                                 />
                                             </ButtonContainer>
                                             <ButtonContainer
-                                                backgroundColor="brown"
+                                                backgroundColor={
+                                                    active ? "brown" : "darkgreen"
+                                                }
                                             >
                                                 <input
                                                     type='button'
-                                                    value='DISCONNECT' 
+                                                    value={
+                                                        active ? "DISCONNECT" : "CONNECT"
+                                                    }
                                                 />
                                             </ButtonContainer>
                                             <ButtonContainer
@@ -97,7 +99,11 @@ const UserCameraPage = () => {
                                         </div>
                                     </div>
                                     <CameraDetails>
-                                        <span style={{ color: 'green' }}>ACTIVE</span>
+                                        <span style={{ color: active ? 'green' : "red" }}>
+                                            {
+                                                active ? "ACTIVE" : "STOPPED"
+                                            }
+                                        </span>
                                     </CameraDetails>
                                 </FlexRow>
                             </CameraInstance>
