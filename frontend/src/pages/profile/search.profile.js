@@ -16,11 +16,23 @@ const ProfileSearch = () => {
 
     useEffect(() => {
         const fetchProfiles = async () => {
-            const data = await axios.get('http://127.0.0.1:8080/profile');
+            const data = await axios.get('http://127.0.0.1:8080/user');
             setProfileData(data.data);
         };
         fetchProfiles();
     }, []);
+
+    const handleDeleteUser = async (username) => {
+        const request = await axios.delete(`http://127.0.0.1:8080/user/${username}`)
+            .then((res) => {
+                setProfileData((data) => {
+                    data.filter((item) => item.username !== username)
+                });
+                console.log(res);
+            })
+            .catch((err) => console.error(err));
+        return request;
+    };
     
     return (
         <ProfileSearchMain>
@@ -33,15 +45,30 @@ const ProfileSearch = () => {
                 </ProfileSearchText>
                 {
                     profileData.map((item, index) => {
-                        const username = item['username'];
+                        const username = item['username'], mail = item['email'];
                         return (
                             <ProfileSearchListItem key={index}>
-                                <div>
-                                    <span style={{ fontWeight: 'bold' }}>{username}</span>
-                                    <span></span>
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <span style={{ fontWeight: 'bold' }}>@{username}</span>
+                                    <span>{mail}</span>
                                 </div>
                                 <ProfileSearchListDetails>
-
+                                    <ButtonContainer backgroundColor="green">
+                                        <input 
+                                            type='button'
+                                            value="GO"
+                                            onClick={() => {
+                                                window.open(`/profile/${username}/page`, '_blank');
+                                            }}
+                                        />
+                                    </ButtonContainer>
+                                    <ButtonContainer backgroundColor="red">
+                                        <input 
+                                            type='button'
+                                            value="DELETE"
+                                            onClick={() => handleDeleteUser(username)}
+                                        />
+                                    </ButtonContainer>
                                 </ProfileSearchListDetails>
                             </ProfileSearchListItem>
                         );

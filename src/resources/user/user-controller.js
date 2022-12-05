@@ -48,7 +48,7 @@ class UserController {
     app.delete(`/${USERS}/:id`, async (req, res, next) => {
       try {
         const database_connect = await connect_to_db();
-        const deleted_status = await User.deleteOne({_id: req.params["id"]});
+        const deleted_status = await User.deleteOne({_id: req.params["username"]});
         res.send(deleted_status);
         res.send(new_user);
       } catch(err) {
@@ -56,6 +56,7 @@ class UserController {
       }
     });
 
+    // ???
     // add admin roles and make admin role anytime
     app.put(`/${USERS}/:id/touser`, async (req, res, next) => {
       try {

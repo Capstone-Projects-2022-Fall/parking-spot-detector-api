@@ -31,7 +31,19 @@ const GroupSearch = () => {
         };
         fetchGroups();
     }, [includePrivate]);
-    
+
+    const handleDeleteGroup = async (id) => {
+        const request = await axios.delete(`http://127.0.0.1:8080/group/${id}`)
+            .then((res) => {
+                setGroupData((data) => {
+                    data.filter((item) => item.id !== id)
+                });
+                console.log(res);
+            })
+            .catch((err) => console.error(err));
+        return request;
+    };
+
     return (
         <GroupSearchContainer>
             <GroupSearchTitle>
@@ -43,7 +55,6 @@ const GroupSearch = () => {
                 </span>
                 <input 
                     type='checkbox'
-                    defaultChecked={includePrivate}
                     checked={includePrivate}
                     onClick={() => setIncludePrivate((state) => !state)}
                 />
@@ -76,7 +87,7 @@ const GroupSearch = () => {
                                             }}
                                             onClick={() => {
                                                 setTimeout(() => {
-                                                    window.open(`/group/${id}/profile`, '_self');
+                                                    window.open(`/group/${newID}/profile`, '_self');
                                                 }, 500);
                                             }}
                                         />
@@ -85,6 +96,7 @@ const GroupSearch = () => {
                                         <input 
                                             type='button'
                                             value="DELETE"
+                                            onClick={() => handleDeleteGroup(newID)}
                                         />
                                     </ButtonContainer>
                                 </GroupSearchListDetails>

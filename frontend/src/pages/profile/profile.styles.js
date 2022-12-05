@@ -66,6 +66,10 @@ export const ProfileSearchListItem = styled.div`
     flex-direction: row;
     justify-content: space-around;
 
+    span {
+        user-select: none;
+    }
+
     padding: 0.5em;
     background-color: ${colors.fadedBlue};
     border-radius: 1em;
