@@ -3,9 +3,9 @@ import {
     HeaderMain,
     HeaderTitle,
     HeaderInputStyle,
-    //LogInHeader
+    LogInHeader
 } from './header.styles';
-import { /*ButtonContainer,*/ FlexRow } from '../../app.styles';
+import { ButtonContainer, FlexRow } from '../../app.styles';
 
 import mainLogo from '../../assets/mainlogo.png';
 
@@ -54,22 +54,27 @@ const Header = () => {
                 </HeaderInputStyle>
             </FlexRow>
             {
-                /*loggedIn &&
                 <LogInHeader>
                     <FlexRow spaced>
-                        <span>Logged in as: {'test user'}</span>
-                        <FlexRow spaced width='200px' style={{
-                            marginTop: "-1em"
-                        }}>
+                        <FlexRow spaced width='300px'>
                             <ButtonContainer>
                                 <input
-                                    value="Profile"
+                                    value="Profiles"
                                     type="button"
                                     style={{ 
                                         padding: '0.5em',
-                                        marginTop: '1em'
                                      }} 
                                      onClick={() => window.open('/profile', '_self')}
+                                />
+                            </ButtonContainer>
+                            <ButtonContainer>
+                                <input 
+                                    value="Groups"
+                                    type="button"
+                                    style={{
+                                        padding: "0.5em",
+                                    }}
+                                    onClick={() => window.open('/group', '_self')}
                                 />
                             </ButtonContainer>
                             <ButtonContainer>
@@ -78,14 +83,13 @@ const Header = () => {
                                     type='button'
                                     style={{
                                         padding: '0.5em',
-                                        marginTop: '1em'
                                     }} 
                                     onClick={() => window.open('/settings', '_self')}
                                 />
                             </ButtonContainer>
                         </FlexRow>
                     </FlexRow>
-                </LogInHeader>  */  
+                </LogInHeader> 
             }
         </HeaderMain>
     );

@@ -3,7 +3,7 @@ import * as colors from '../../constants/colors';
 
 export const HeaderMain = styled.div`
     width: 100%;
-    height: ${props => props.setToken ? '15vh' : '10vh'};
+    height: ${props => props.setToken ? '15vh' : '12vh'};
     background-color: ${colors.fadedBlue};
 
     padding: 0.5em 1em;
@@ -59,9 +59,8 @@ export const HeaderInputStyle = styled.div`
 `;
 
 export const LogInHeader = styled.div`
-    height: 4vh;
     width: auto;
-    padding: 0.25em 0.75em;
+    padding: 0 0.75em;
     margin-left: -1em;
     background-color: ${colors.darkBlue};
     border: 2px solid ${colors.customBlack};

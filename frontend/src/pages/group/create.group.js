@@ -26,8 +26,6 @@ const CreateGroupPage = () => {
     const createGroupURL = 'http://127.0.0.1:8080/group';
 
     const [complete, setComplete] = useState(false);
-    const [newGroupId, setNewGroupId] = useState('');
-    const [loadingId, setLoadingId] = useState('');
 
     const [availableUsers, setAvailableUsers] = useState([]);
     const [requestedUsers, setRequestedUsers] = useState([]);
@@ -64,17 +62,15 @@ const CreateGroupPage = () => {
     const { errors, isSubmitting } = formState;
 
     const postData = async (data) => {
+        const x = Math.floor(Math.random() * requestedUsers.length);
         data['users'] = requestedUsers;
-        data['admins'] = ["stephull"]; //test
+        data['admins'] = [requestedUsers[x]]; //test
         await axios({
             method: "POST",
             data: data,
             url: createGroupURL
         })
-        .then((res) => {
-            setNewGroupId(res['_id']);
-            console.log(res);
-        })
+        .then((res) => console.log(res))
         .catch((err) => console.error(err));
     };
 
@@ -192,9 +188,6 @@ const CreateGroupPage = () => {
                             <input 
                                 type='button'
                                 value="Go to Group Page"
-                                onMouseOver={() => {
-                                    setLoadingId(newGroupId);
-                                }}
                                 onClick={() => {
                                     setTimeout(() => {
                                         window.open(`/group/`, '_blank');
