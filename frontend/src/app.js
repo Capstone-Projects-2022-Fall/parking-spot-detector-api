@@ -43,15 +43,10 @@ export default function App() {
           <Route exact path="/signup/camera" element={
             <CameraRegister />
           } />
-          {
-            /* the following pages are linked to the backend */
-            /* anything involving user information will preface 
-              with ** '/profile' ** */
-          }
           <Route exact path="/profile" element={
             <ProfileSearch />
           } />
-          <Route exact path="/profile/:id" element={
+          <Route exact path="/profile/:id/page" element={
             <ProfilePage />
           } />
           <Route exact path="/profile/cameras" element={

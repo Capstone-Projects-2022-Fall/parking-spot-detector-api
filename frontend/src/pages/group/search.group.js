@@ -34,9 +34,13 @@ const GroupSearch = () => {
                 {
                     groupData.map((item, index) => {
                         const newID = item['_id'];
+                        const groupName = item['name'];
                         return (
                             <GroupSearchListItem key={index}>
-                                <span>Group ID: {newID}</span>
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <span style={{ fontWeight: 'bold' }}>Group name: {groupName}</span>
+                                    <span>Group ID: {newID}</span>
+                                </div>
                                 <GroupSearchListDetails>
                                     <ButtonContainer backgroundColor='green'>
                                         <input 
@@ -50,6 +54,12 @@ const GroupSearch = () => {
                                                     window.open(`/group/${id}/profile`, '_self');
                                                 }, 500);
                                             }}
+                                        />
+                                    </ButtonContainer>
+                                    <ButtonContainer backgroundColor='red'>
+                                        <input 
+                                            type='button'
+                                            value="DELETE"
                                         />
                                     </ButtonContainer>
                                 </GroupSearchListDetails>

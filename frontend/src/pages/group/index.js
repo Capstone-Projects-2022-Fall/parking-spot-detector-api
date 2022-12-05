@@ -6,22 +6,24 @@ import {
     GroupProfileMain,
     GroupTitle,
     GroupContainer,
-    GroupPrivacy,
-    //GroupSubcontainer,
     GroupAdminContainer,
     GroupUserContainer,
     GroupMsgContainer,
     GroupUserDisplay,
     GroupAdminDisplay,
+    GroupSubcontainer,
+    GroupIconContainer
 } from './groups.styles';
+
+import show from '../../assets/show.png';
+import hide from '../../assets/hide.png';
+import messenger from '../../assets/messenger.png';
 
 const GroupProfile = () => {
     const [groupProfile, setGroupProfile] = useState({
-        name: "",
-        privacy: false,
+        name: "", privacy: false,
         home_addr: "",
-        users: [],
-        admins: [],
+        users: [], admins: [],
         status_update: "",
         created_on: ''
     });
@@ -43,40 +45,51 @@ const GroupProfile = () => {
     } = groupProfile;
     return (
         <GroupProfileMain>
-            <GroupTitle>
-                <span>{name}</span>
-                <small>{home_addr}</small>
-                {
-                    privacy ? 
-                    <GroupPrivacy color="purple">
-                        PRIVATE GROUP
-                    </GroupPrivacy> : 
-                    <GroupPrivacy color='green'>
-                        PUBLIC GROUP
-                    </GroupPrivacy>
-                }
-            </GroupTitle>
+            <GroupSubcontainer row>
+                <GroupIconContainer private={privacy}>
+                    {
+                        privacy ? 
+                        <img alt="" src={hide} /> :
+                        <img alt="" src={show} />
+                    }
+                </GroupIconContainer>
+                <GroupTitle>
+                    <span>{name}</span>
+                    <small>{home_addr}</small>
+                </GroupTitle>
+            </GroupSubcontainer>
             <GroupContainer>
                 <GroupMsgContainer>
-                    { status_update }
+                    <img src={messenger} alt="" />
+                    <span>{ status_update }</span>
                 </GroupMsgContainer>
+                <b style={{ padding: '1em' }}>ADMINS</b>
                 <GroupAdminContainer>
                     {
                         admins.map((admin, index) => {
                             return (
                                 <GroupAdminDisplay key={index}>
-                                    <span>{admin}</span>
+                                    <span
+                                        onClick={() => window.open(`/profile/${admin}/page`, '_blank')}
+                                    >
+                                        {admin}
+                                    </span>
                                 </GroupAdminDisplay>
                             );
                         })
                     }
-                </GroupAdminContainer> 
+                </GroupAdminContainer>
+                <b style={{ padding: '1em' }}>USERS</b>
                 <GroupUserContainer>
                     {
                         users.map((user, index) => {
                             return (
                                 <GroupUserDisplay key={index}>
-                                    <span>{user}</span>
+                                    <span
+                                        onClick={() => window.open(`/profile/${user}/page`, '_blank')}
+                                    >
+                                        {user}
+                                    </span>
                                 </GroupUserDisplay>
                             );
                         })
