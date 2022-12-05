@@ -27,6 +27,12 @@ const UserCameraPage = () => {
         fetchCameras();
     }, []);
 
+    const handleCameraDelete = async (id) => {
+        await axios.delete(`http://parkingspotdetector-env.eba-mmwgffbe.us-east-1.elasticbeanstalk.com/cameras/${id}`)
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
+    };
+
     return (
         <CameraPageContainer>
             <div style={{
@@ -88,14 +94,18 @@ const UserCameraPage = () => {
                                                     }
                                                 />
                                             </ButtonContainer>
-                                            <ButtonContainer
-                                                backgroundColor="red"
-                                            >
-                                                <input
-                                                    type='button'
-                                                    value='DELETE' 
-                                                />
-                                            </ButtonContainer>
+                                            {
+                                                !active &&
+                                                <ButtonContainer
+                                                    backgroundColor="red"
+                                                >
+                                                    <input
+                                                        type='button'
+                                                        value='DELETE' 
+                                                        onClick={() => handleCameraDelete(newID)}
+                                                    />
+                                                </ButtonContainer>
+                                            }
                                         </div>
                                     </div>
                                     <CameraDetails>

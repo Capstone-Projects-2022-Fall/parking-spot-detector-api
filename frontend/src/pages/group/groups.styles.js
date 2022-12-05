@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import * as colors from '../../constants/colors';
 
 export const GroupProfileMain = styled.div`
-    border: 0.25em solid ${props => props.privacy ? "green" : "pink"};
     border-radius: 0.5em;
     padding: 1em;
 `;

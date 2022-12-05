@@ -232,6 +232,8 @@ const CameraFrameHistoryPage = () => {
 
     return (
         <FramePageContainer>
+            <a href="/profile/cameras" target="_self">{`<<< Go back to cameras`}</a>
+            <br/><br/>
             <FramePageTitle>
                 Camera ID: {id}
             </FramePageTitle>

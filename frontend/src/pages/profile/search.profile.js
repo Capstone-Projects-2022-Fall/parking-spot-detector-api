@@ -22,16 +22,15 @@ const ProfileSearch = () => {
         fetchProfiles();
     }, []);
 
-    const handleDeleteUser = async (username) => {
-        const request = await axios.delete(`http://127.0.0.1:8080/user/${username}`)
+    const handleDeleteUser = async (id) => {
+        await axios.delete(`http://127.0.0.1:8080/user/${id}`)
             .then((res) => {
                 setProfileData((data) => {
-                    data.filter((item) => item.username !== username)
+                    data.filter((item) => item._id !== id)
                 });
                 console.log(res);
             })
             .catch((err) => console.error(err));
-        return request;
     };
     
     return (
@@ -45,7 +44,7 @@ const ProfileSearch = () => {
                 </ProfileSearchText>
                 {
                     profileData.map((item, index) => {
-                        const username = item['username'], mail = item['email'];
+                        const username = item['username'], mail = item['email'], userID = item['_id'];
                         return (
                             <ProfileSearchListItem key={index}>
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -66,7 +65,7 @@ const ProfileSearch = () => {
                                         <input 
                                             type='button'
                                             value="DELETE"
-                                            onClick={() => handleDeleteUser(username)}
+                                            onClick={() => handleDeleteUser(userID)}
                                         />
                                     </ButtonContainer>
                                 </ProfileSearchListDetails>

@@ -36,7 +36,7 @@ const GroupSearch = () => {
     }, [includePrivate]);
 
     const handleDeleteGroup = async (id) => {
-        const request = await axios.delete(`http://127.0.0.1:8080/group/${id}`)
+        await axios.delete(`http://127.0.0.1:8080/group/${id}`)
             .then((res) => {
                 setGroupData((data) => {
                     data.filter((item) => item.id !== id)
@@ -44,7 +44,6 @@ const GroupSearch = () => {
                 console.log(res);
             })
             .catch((err) => console.error(err));
-        return request;
     };
 
     return (
